@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#06c1db">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>iOS Support - Đoàn</title>
+  <link rel="icon" type="image/png" href="./image/appstore.png">
+  <link rel="stylesheet" href="./main.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+  <main>
+    <div id="qrcode"></div>
+    <h2 class="rainbow-animated">Phạm Bình Đoàn</h2>
+    <textarea id="deviceKeysInput" placeholder="Nhập: B62 DNPRW1CSHFLR (Mỗi máy 1 dòng)"></textarea>
+    <a class="btn" href="#" id="bookmarkletbackup">Kéo lên thanh dấu trang!</a>
+  </main>
+
+  <script>
+    new QRCode(document.getElementById("qrcode"), "https://doanpbvn.github.io/ios");
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const deviceKeysInput = document.getElementById('deviceKeysInput');
+      const bookmarkletbackup = document.getElementById('bookmarkletbackup');
+
+      function generateBookmarklet() {
+        const lines = deviceKeysInput.value.trim().split('\n').filter(line => line.trim() !== '');
+        if (lines.length === 0) {
+          bookmarkletbackup.href = "#";
+          bookmarkletbackup.textContent = "Bạn chưa nhập Key kìa ^^";
+          return;
+        }
+
+        const names = [], keys = [];
+        lines.forEach(line => {
+          const parts = line.trim().split(' ');
+          const name = parts[0];
+          const key = parts.slice(1).join(' ');
+          if (name && key) {
+            names.push(name);
+            keys.push(`"${key}"`);
+          }
+        });
+
+        const formattedKeys = keys.join(',');
+        const defaultName = names.length === 1 ? names[0] : `${names[0]} - ${names[names.length - 1]}`;
+        let customName = prompt("Nhập tên backup tùy chỉnh:", defaultName);
+        if (!customName || customName.trim() === "") customName = defaultName;
+
+        const bookmarkletCode = `(async () => {
+          let skipWaiting = false;
+          let forceStop = false;
+          let remainingTime = 0;
+          let lastSpaceLogTime = 0;
+
+          function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+          }
+
+          function onKeydown(e) {
+            const now = Date.now();
+            if (e.key.toLowerCase() === "s") {
+              skipWaiting = true;
+              console.log("⏩ Đã bỏ qua thời gian chờ!");
+            }
+            if (e.code === "Space") {
+              e.preventDefault();
+              if (now - lastSpaceLogTime > 1000) {
+                console.log(\`⏳ Còn lại: \${Math.max(remainingTime / 1000, 0)}s\`);
+                lastSpaceLogTime = now;
+              }
+            }
+            if (e.key === "Escape") {
+              forceStop = true;
+              console.log("🛑 Đã thoát script theo yêu cầu (ESC)!");
+            }
+          }
+
+          window.addEventListener("keydown", onKeydown);
+
+          async function smartWait(ms) {
+            const step = 1000;
+            remainingTime = ms;
+            while (remainingTime > 0 && !skipWaiting && !forceStop) {
+              await delay(step);
+              remainingTime -= step;
+            }
+            skipWaiting = false;
+          }
+
+          const totalRuns = parseInt(prompt("Nhập số lượt chạy:"), 10);
+          if (!totalRuns) return alert("Thiếu số lượt chạy!");
+
+          const devices = ${JSON.stringify(lines)}.map(line => {
+            const parts = line.trim().split(/\\s+/);
+            return { name: parts[0], id: parts[1] };
+          }).filter(d => d.name && d.id);
+
+          async function fakeCleanDevice(device) {
+            console.log(\`🧹 Đang FakeClean!\`);
+            await fetch(\`https://ifake.pro/manager/device/\${device.id}/tools\`, {
+              method: "POST",
+              headers: { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+              body: "action=fake_clean",
+              credentials: "include"
+            });
+          }
+
+          async function sendScriptToDevices(scriptLines) {
+            const params = new URLSearchParams();
+            devices.forEach(d => params.append("serial_numbers[]", d.id));
+            params.append("scripts", scriptLines.join("\\n"));
+            params.append("song_song", "0");
+            console.log("📤 Open TiktokLite > Skip Lựa Chọn > Lướt Video");
+            await fetch("https://ifake.pro/manager/devices/send_script_to_devices", {
+              method: "POST",
+              headers: { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+              body: params.toString(),
+              credentials: "include"
+            });
+          }
+
+          async function backupDevice(device, runIndex) {
+            const now = new Date();
+            const timestamp = \`\${String(now.getDate()).padStart(2, '0')}-\${String(now.getMonth() + 1).padStart(2, '0')}\`;
+            const sessionRes = await fetch(\`https://ifake.pro/manager/device/\${device.id}/sessions\`, {
+              method: "POST",
+              headers: { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+              body: "action=get_sessions_from_server",
+              credentials: "include"
+            });
+            const sessionData = await sessionRes.json();
+            const totalSessions = (sessionData.html.match(/Folder:\\s*([A-F0-9-]{36})<\\/span>/g) || []).length;
+            const backupName = \`\${device.name}-\${timestamp}-\${totalSessions + 1}\`;
+            console.log(\`💾 Backup \${device.name}: \${backupName}\`);
+            await fetch(\`https://ifake.pro/manager/device/\${device.id}/sessions\`, {
+              method: "POST",
+              headers: { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+              body: \`action=backup&name=\${backupName}\`,
+              credentials: "include"
+            });
+          }
+            const behaviorScript = [
+                        "close:com.ss.iphone.ugc.tiktok.lite",
+                        "waitrand:1|2",
+                        "open:com.ss.iphone.ugc.tiktok.lite",
+                        "waitrand:4|8",
+                        "open:com.ss.iphone.ugc.tiktok.lite",
+                        "waitrand:10|15",
+                        "open:com.ss.iphone.ugc.tiktok.lite",
+                        "apptouchtext:skip,last",
+                        "apptouchtext:dance,last",
+                        "apptouchtext:family,last",
+                        "apptouchtext:comedy,last",
+                        "apptouchtext:next,last",
+                        "waitrand:1|2",
+                        "open:com.ss.iphone.ugc.tiktok.lite",
+                        "waitrand:1|2",
+                        ...Array(7).fill("smartmoveextend:right,up,0.3").flatMap(cmd => [cmd, "waitrand:1|2"])
+                    ];
+          for (let run = 0; run < totalRuns; run++) {
+            if (forceStop) break;
+            console.log(\`🚀 Lượt chạy \${run + 1}/\${totalRuns}\`);
+
+            for (const device of devices) {
+              if (forceStop) break;
+              await fakeCleanDevice(device);
+            }
+
+            console.log("⏱ Đợi 60s sau fake clean...");
+            await smartWait(60000);
+            if (forceStop) break;
+
+            await sendScriptToDevices(behaviorScript);
+
+            console.log("⏱ Đợi 120s xử lý script...");
+            await smartWait(120000);
+            if (forceStop) break;
+
+            for (const device of devices) {
+              if (forceStop) break;
+              await backupDevice(device, run);
+            }
+
+            console.log("⏱ Đợi 60s để backup...");
+            await smartWait(60000);
+          }
+
+          window.removeEventListener("keydown", onKeydown);
+          console.log("✅ HOÀN TẤT TOÀN BỘ SCRIPT!");
+        })();`;
+
+        const encodedBookmarklet = `javascript:${encodeURIComponent(bookmarkletCode)}`;
+        bookmarkletbackup.href = encodedBookmarklet;
+        bookmarkletbackup.textContent = `${customName} Tạo Phôi`;
+      }
+
+      deviceKeysInput.addEventListener('input', generateBookmarklet);
+      generateBookmarklet();
+    });
+  </script>
+
+  <footer style="text-align: center;">&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+</body>
+</html>

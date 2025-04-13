@@ -1,0 +1,184 @@
+/* ==== Reset & Base ==== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+  vertical-align: baseline;
+  color: inherit;
+  
+}
+
+html {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: hsl(0, 0%, 95%);
+  max-width: 500px;
+  margin: 10px auto;
+  color: #333;
+}
+
+/* ==== Layout Containers ==== */
+main {
+  background-color: #fff;
+  width: 100%;
+  margin: 10px auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ==== Typography ==== */
+h1, h2 {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* ==== Links & Buttons ==== */
+a,
+button {
+  display: block;
+  margin: 0px auto;
+  padding: 5px;
+  text-align: center;
+}
+
+a {
+  width: calc(100% - 50px);
+  border: 1px dashed #ccc;
+  align-items: center;
+}
+
+a:hover,
+button:hover {
+  background-color: rgb(155, 255, 255);
+  font-weight: bold;
+}
+
+button {
+  width: 30%;
+  min-height: 20px;
+}
+
+/* ==== Forms ==== */
+input,
+textarea {
+  font-size: 16px;
+}
+
+input {
+  width: 70%;
+  padding: 0 10px;
+  height: 35px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+textarea {
+  width: calc(100% - 20px);
+  height: 80px;
+  padding: 5px;
+  border: 1px solid #00ffff;
+  resize: none;
+  display: block;
+  margin: 10px auto;
+}
+
+/* ==== Images & Icons ==== */
+img {
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.icon {
+  max-width: 35px;
+  padding: 0 5px;
+  margin: 0;
+}
+
+/* ==== Flexbox Utilities ==== */
+.title,
+.btn,
+.text_URL {
+  width: calc(100% - 20px);
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  border: 1px solid #00ffff;
+}
+
+.btn {
+  border: 1px solid #00ffff;
+  cursor: pointer;
+}
+
+.text_URL {
+  justify-content: flex-start;
+  border: 1px solid #00ffff;
+}
+
+/* ==== Rainbow Animation ==== */
+.rainbow-animated {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ffa600,
+    #00f7ff,
+    #ff0000,
+    #ffa600,
+    #00f7ff
+  );
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowMove 3s linear infinite;
+}
+
+@keyframes rainbowMove {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+/* ==== Responsive Design ==== */
+@media (max-width: 1000px) {
+  body {
+    background: repeating-linear-gradient(
+      90deg,
+      #fff 0px,
+      #fff 1px,
+      #f0f0f0 1px,
+      #f0f0f0 10px
+    );
+  }
+
+  input,
+  textarea,
+  button,
+  img {
+    font-size: 16px;
+    border-radius: 0;
+  }
+}

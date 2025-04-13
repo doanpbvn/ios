@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#06c1db">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iOS Support - Đoàn</title>
+    <link rel="icon" type="image/png" href="./image/appstore.png">
+    <link rel="stylesheet" href="./main.css">
+    <style>
+        #showBtn {display: none; margin: 10px;}
+    </style>
+    <script src="./function/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1 class="rainbow-animated">Phạm Bình Đoàn</h1>
+        <div style="margin: 10px;" id="qrcode"></div>
+        <button class="text_URL" id="toggleBtn">Hiện Copy Text</button>
+        <div id="showBtn">
+            <fieldset class="btn"><input value="p4679657 Mnbv321321"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="p7368462 5r3akqGoUb"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="p6072432 JZ4dQXRP6w"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="p5343038 Sondz123123"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="adrianmunoz99@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="lumpocoal333.ca@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="adrianmunoz99@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="jillpapuette1961@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="hengyingfen96@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
+            <fieldset class="btn"><input value="aaron.long1979@icloud.com Mnbv321321"><button>Copy Text</button></fieldset>
+        </div>
+        <a class="text_URL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" src="./image/downloads.png">Download ProxyScreenshotBypass_0106</a>
+        <a class="text_URL" href="./src/1-AppsManager_1.8.4_Crack.tipa" target="_blank"><img class="icon" src="./image/downloads.png">Download Apps Manager</a>
+        <a class="text_URL" href="./src/2-Filza_NoUrlScheme_4.0Crack@巨魔商店.tipa" target="_blank"><img class="icon" src="./image/downloads.png">Download Filza</a>
+        <a class="text_URL" href="./src/data-full.zip" target="_blank"><img class="icon" src="./image/downloads.png">Download Data Settings</a>
+        <a class="text_URL" href="http://localhost/data.html" target="_blank"><img class="icon" src="./image/XAMPP.webp">Localhost</a>
+        <a class="text_URL" href="./backup.html" target="_blank"><img class="icon" src="./image/Bookmarklet.png">Tạo Bookmarklet</a>
+        <a class="text_URL" href="./qr.html" target="_blank"><img class="icon" src="./image/add-qr.png">Tạo QR Code</a>
+        <a class="text_URL" href="https://havoc.app/package/trollfools/" target="_blank"><img class="icon" src="./image/trollfood.webp">Download TrollFools New</a>
+        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollrestore/" target="_blank"><img class="icon" src="./image/TrollStore.jpg">Add TrollStore For PC-Mac</a>
+        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollhelperota/" target="_blank"><img class="icon" src="./image/TrollStore.jpg">TrollHelperOTA</a>
+        <a class="text_URL" href="https://tigisoftware.com/repo/" target="_blank"><img class="icon" src="https://getsileo.app/img/icon.png">Add Tigisoftware Sileo</a>
+        <a class="text_URL" href="https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43" target="_blank"><img class="icon" src="./image/shortcut.png">Add Shortcut Tiktok 60p</a>
+        <a class="text_URL" href="https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9" target="_blank"><img class="icon" src="./image/shortcut.png">Add Shortcut Tiktok 30p</a>
+        <fieldset class="btn"><input value="/private/var/mobile/Library/Preferences/iFakePro/main"><button>Copy Text</button></fieldset>
+        <fieldset class="btn"><input value="/private/var/mobile/Library/ADManager"><button>Copy Text</button></fieldset>
+    </main>
+    <script>
+        var qrText = "https://doanpbvn.github.io/ios";
+        new QRCode(document.getElementById("qrcode"), qrText);
+        //Copy Text
+        document.addEventListener('click', e => {if (e.target.tagName === 'BUTTON') {const input = e.target.previousElementSibling;if (input?.tagName === 'INPUT') {navigator.clipboard.writeText(input.value).catch(console.error);}}});
+        //Toggle Button
+        const toggleBtn = document.getElementById('toggleBtn');
+        const showBtn = document.getElementById('showBtn');
+        toggleBtn.addEventListener('click', () => {
+        const isVisible = showBtn.style.display === 'block';
+        showBtn.style.display = isVisible ? 'none' : 'block';
+        toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
+        });
+      </script>
+    <footer style="text-align: center;">&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+</body>
+</html>
