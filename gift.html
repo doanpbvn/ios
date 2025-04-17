@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#06c1db">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iOS Support - Đoàn</title>
+    <link rel="icon" type="image/png" href="./image/appstore.png">
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <style>
+        #showBtn {display: none; margin: 10px;}
+        body {font-weight: bold;}
+        input{width: calc(100% - 10px); min-height: 50px; display: flex;  border: 1px solid #ccc;  margin: 5px; }
+        button {background-color: #9bffff; width: calc(100% - 10px); min-height: 50px; display: flex; align-items: center; border: 1px solid #ccc;  margin: 5px;font-weight: bold; }
+        .columns label { max-height: 50px; display: flex;  align-items: center;  gap: 8px;  border: 1px solid #ccc;  margin: 5px;  padding: 5px 10px;}
+        .columns input[type="radio"] {  width: 15px;  height: 15px;  accent-color: #007bff;}
+        .columns label.active {  background-color: #a5ffad;  border-color: #00ff15;}
+        fieldset {width: calc(100% - 20px);border: 1px dashed #ccc;display: flex;justify-content: center;margin: 15px auto 15px;}
+  </style>
+</head>
+<body>
+    <h1 class="rainbow-animated">Lưu Gift</h1>
+    <input type="text" id="inputData" placeholder="Nhập link Gift muốn lưu">
+    <button onclick="sendGiftToSheet('Sheet1')">Lưu Gift - Tổng</button>
+    <button onclick="sendGiftToSheet('Dàn A')">Lưu Gift - Dàn A</button>
+    <button onclick="sendGiftToSheet('Dàn B')">Lưu Gift - Dàn B</button>
+    <button onclick="sendGiftToSheet('Dàn C')">Lưu Gift - Dàn C</button>
+    <div class="columns">
+      <label><input type="radio" name="giftType" value="100" checked>Gift 100</label>
+      <label><input type="radio" name="giftType" value="500">Gift 500</label>
+      <label><input type="radio" name="giftType" value="1000">Gift 1000</label>
+      <label><input type="radio" name="giftType" value="1000">Gift 3000</label>
+      <label><input type="radio" name="giftType" value="Check URL">Check URL</label>
+      <label><input type="radio" name="giftType" value="Check User">Check User</label>
+    </div>
+  <div style="margin: 10px;" id="qrcode"></div>
+  <footer>&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+
+<script>
+  var qrText = "https://doanpbvn.github.io/ios";
+  new QRCode(document.getElementById("qrcode"), qrText);
+
+  const radios = document.querySelectorAll('.columns input[type="radio"]');
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      radios.forEach(r => r.parentElement.classList.remove('active'));
+      radio.parentElement.classList.add('active');
+    });
+  });
+
+  let isSubmitting = false;
+
+  function sendGiftToSheet(sheetName) {
+    if (isSubmitting) {
+      alert("Đang tiến hành gửi, Bấm OK !");
+      return;
+    }
+
+    const inputData = document.getElementById("inputData").value.trim();
+    const selectedType = document.querySelector('input[name="giftType"]:checked')?.value;
+    if (!inputData) return alert("Vui lòng nhập link gift");
+    if (!selectedType) return alert("Vui lòng chọn loại gift");
+
+    isSubmitting = true;
+    setTimeout(() => {
+      isSubmitting = false;
+    }, 5000);
+
+    const params = new URLSearchParams({
+      sheet: sheetName,
+      type: selectedType,
+      link: inputData
+    });
+    const fullURL = "https://script.google.com/macros/s/AKfycbxBduMz54Rd-3c1Pvz8k5AdEvXHF-JyVJF3dGKHeCfdYuor3SeS1du6teBmYBzcKPaPSQ/exec?" + params.toString();
+
+    fetch(fullURL)
+      .then(res => res.ok ? res.text() : Promise.reject('Fetch lỗi'))
+      .then(data => {
+        alert(`✅ Lưu Thành Công ${data}`);
+        location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Có lỗi xảy ra, vui lòng thử lại!");
+      });
+  }
+</script>
+
+</body>
+</html>

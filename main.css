@@ -182,3 +182,7 @@ img {
     border-radius: 0;
   }
 }
+@media screen and (max-width: 600px) {
+  #userTable {display: block;overflow-x: auto;white-space: nowrap;}
+  th, td {padding: 10px;}
+  }
