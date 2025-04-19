@@ -8,7 +8,9 @@
     <link rel="icon" type="image/png" href="./image/appstore.png">
     <link rel="stylesheet" href="./main.css">
     <style>
-        #showBtn {display: none; margin: 10px;}
+        #showBtn { display: none; margin: 10px; }
+        #randomDNS { font-weight: bold; color: #06c1db; }
+        button { margin-top: 10px; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
@@ -29,38 +31,107 @@
             <fieldset class="btn"><input value="hengyingfen96@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
             <fieldset class="btn"><input value="aaron.long1979@icloud.com Mnbv321321"><button>Copy Text</button></fieldset>
         </div>
-        <a class="text_URL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" src="./image/downloads.png">Download ProxyScreenshotBypass_0106</a>
-        <a class="text_URL" href="./src/1-AppsManager_1.8.4_Crack.tipa" target="_blank"><img class="icon" src="./image/downloads.png">Download Apps Manager</a>
-        <a class="text_URL" href="./src/2-Filza_NoUrlScheme_4.0Crack@巨魔商店.tipa" target="_blank"><img class="icon" src="./image/downloads.png">Download Filza</a>
-        <a class="text_URL" href="./src/data-full.zip" target="_blank"><img class="icon" src="./image/downloads.png">Download Data Settings</a>
-        <a class="text_URL" href="http://localhost/data.html" target="_blank"><img class="icon" src="./image/XAMPP.webp">Localhost</a>
-        <a class="text_URL" href="./generate.html" target="_blank"><img class="icon" src="./image/appstore.png">Apple ID Generator</a>
-        <a class="text_URL" href="./gift.html" target="_blank"><img class="icon" src="./image/Bookmarklet.png">Lưu Gift</a>
-        <a class="text_URL" href="./backup.html" target="_blank"><img class="icon" src="./image/Bookmarklet.png">Tạo Bookmarklet</a>
-        <a class="text_URL" href="./qr.html" target="_blank"><img class="icon" src="./image/add-qr.png">Tạo QR Code</a>
-        <a class="text_URL" href="https://havoc.app/package/trollfools/" target="_blank"><img class="icon" src="./image/trollfood.webp">Download TrollFools New</a>
-        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollrestore/" target="_blank"><img class="icon" src="./image/TrollStore.jpg">Add TrollStore For PC-Mac</a>
-        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollhelperota/" target="_blank"><img class="icon" src="./image/TrollStore.jpg">TrollHelperOTA</a>
-        <a class="text_URL" href="https://tigisoftware.com/repo/" target="_blank"><img class="icon" src="https://getsileo.app/img/icon.png">Add Tigisoftware Sileo</a>
-        <a class="text_URL" href="https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43" target="_blank"><img class="icon" src="./image/shortcut.png">Add Shortcut Tiktok 60p</a>
-        <a class="text_URL" href="https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9" target="_blank"><img class="icon" src="./image/shortcut.png">Add Shortcut Tiktok 30p</a>
+        <div style="text-align: center;" id="randomDNS">IP sẽ hiển thị ở đây</div>
+        <button class="btn" onclick="copyToClipboard()">Copy Random DNS</button>
+        <a class="text_URL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download ProxyScreenshotBypass_0106</a>
+        <a class="text_URL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" alt="img" alt="img" src="./image/downloads.png">Download ProxyScreenshotBypass_0106</a>
+        <a class="text_URL" href="./src/1-AppsManager_1.8.4_Crack.tipa" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download Apps Manager</a>
+        <a class="text_URL" href="./src/2-Filza_NoUrlScheme_4.0Crack@巨魔商店.tipa" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download Filza</a>
+        <a class="text_URL" href="./src/data-full.zip" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download Data Settings</a>
+        <a class="text_URL" href="http://localhost/data.html" target="_blank"><img class="icon" alt="img" src="./image/XAMPP.webp">Localhost</a>
+        <a class="text_URL" href="./generate.html" target="_blank"><img class="icon" alt="img" src="./image/appstore.png">Apple ID Generator</a>
+        <a class="text_URL" href="./gift.html" target="_blank"><img class="icon" alt="img" src="./image/Bookmarklet.png">Lưu Gift</a>
+        <a class="text_URL" href="./backup.html" target="_blank"><img class="icon" alt="img" src="./image/Bookmarklet.png">Tạo Bookmarklet</a>
+        <a class="text_URL" href="./qr.html" target="_blank"><img class="icon" alt="img" src="./image/add-qr.png">Tạo QR Code</a>
+        <a class="text_URL" href="https://havoc.app/package/trollfools/" target="_blank"><img class="icon" alt="img" src="./image/trollfood.webp">Download TrollFools New</a>
+        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollrestore/" target="_blank"><img class="icon" alt="img" src="./image/TrollStore.jpg">Add TrollStore For PC-Mac</a>
+        <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollhelperota/" target="_blank"><img class="icon" alt="img" src="./image/TrollStore.jpg">TrollHelperOTA</a>
+        <a class="text_URL" href="https://tigisoftware.com/repo/" target="_blank"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Add Tigisoftware Sileo</a>
+        <a class="text_URL" href="https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43" target="_blank"><img class="icon" alt="img" src="./image/shortcut.png">Add Shortcut Tiktok 60p</a>
+        <a class="text_URL" href="https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9" target="_blank"><img class="icon" alt="img" src="./image/shortcut.png">Add Shortcut Tiktok 30p</a>
         <fieldset class="btn"><input value="/private/var/mobile/Library/Preferences/iFakePro/main"><button>Copy Text</button></fieldset>
-        <fieldset class="btn"><input value="/private/var/mobile/Library/ADManager"><button>Copy Text</button></fieldset>
+        <fieldset class="btn"><input value="/private/var/mobile/Library/ADManager"><button>Copy Text</button></fieldset> tải xuống khác ... -->
     </main>
+    
     <script>
         var qrText = "https://doanpbvn.github.io/ios";
         new QRCode(document.getElementById("qrcode"), qrText);
-        //Copy Text
-        document.addEventListener('click', e => {if (e.target.tagName === 'BUTTON') {const input = e.target.previousElementSibling;if (input?.tagName === 'INPUT') {navigator.clipboard.writeText(input.value).catch(console.error);}}});
-        //Toggle Button
+
+        // Copy Text
+        document.addEventListener('click', e => {
+            if (e.target.tagName === 'BUTTON') {
+                const input = e.target.previousElementSibling;
+                if (input?.tagName === 'INPUT') {
+                    navigator.clipboard.writeText(input.value).catch(console.error);
+                }
+            }
+        });
+
+        // Toggle Button to show/hide Copy Text section
         const toggleBtn = document.getElementById('toggleBtn');
         const showBtn = document.getElementById('showBtn');
         toggleBtn.addEventListener('click', () => {
-        const isVisible = showBtn.style.display === 'block';
-        showBtn.style.display = isVisible ? 'none' : 'block';
-        toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
+            const isVisible = showBtn.style.display === 'block';
+            showBtn.style.display = isVisible ? 'none' : 'block';
+            toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
         });
-      </script>
+
+        // DNS List Fetching and Random IP selection
+        let ipList = [];
+
+        async function fetchDNSList() {
+            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://public-dns.info/nameserver/jp.html");
+            const displayElement = document.getElementById("randomDNS");
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, "text/html");
+                const rows = doc.querySelectorAll("table tbody tr");
+                const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/; // Regex for valid IPv4 addresses
+                ipList = Array.from(rows)
+                    .map(row => row.querySelector("td").textContent.trim())
+                    .filter(ip => ipRegex.test(ip)); // Filter only valid IPs
+
+                if (ipList.length > 0) {
+                    setRandomIP();
+                } else {
+                    displayElement.textContent = "No valid IP addresses found.";
+                }
+            } catch (error) {
+                console.error("Error fetching DNS list:", error);
+                displayElement.textContent = "Error loading DNS data.";
+            }
+        }
+
+        function setRandomIP() {
+            if (ipList.length > 0) {
+                const randomIP = ipList[Math.floor(Math.random() * ipList.length)];
+                document.getElementById("randomDNS").textContent = randomIP;
+                return randomIP;
+            }
+            return null;
+        }
+
+        function copyToClipboard() {
+            const ip = document.getElementById("randomDNS").textContent;
+            if (ip && ip !== "Error loading DNS data." && ip !== "No valid IP addresses found.") {
+                navigator.clipboard.writeText(ip).then(() => {
+                    alert("Copied to clipboard: " + ip);
+                    setRandomIP(); // Change to a new random IP after copying
+                }).catch((error) => {
+                    alert("Failed to copy: " + error);
+                });
+            } else {
+                alert("No valid IP address to copy.");
+            }
+        }
+
+        // Load the DNS list on page load
+        window.onload = fetchDNSList;
+    </script>
+
     <footer style="text-align: center;">&copy; 2025 - DoanPB - All Rights Reserved.</footer>
 </body>
 </html>
