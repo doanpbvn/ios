@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#06c1db">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iOS Support - Đoàn</title>
+    <link rel="icon" type="image/png" href="./image/appstore.png">
+    <link rel="stylesheet" href="./main.css">
+    <style>
+      #showBtn {display: none; margin: 10px;}
+      body{ max-width: 800px;}
+      button { padding: 12px 20px; background-color: #00eeff; cursor: pointer; font-size: 16px; border-radius: 5px; width: 100%; max-width: 200px; font-weight: bold;}
+      table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+      th, td { padding: 12px; text-align: center; border: 1px solid #000000; background-color: #cffffd;}
+      th { background-color: #feffcf;font-weight: bold; }
+      .copy-btn { background-color: #00eeff; color: black; border: none; padding: 6px 12px; cursor: pointer; border-radius: 5px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+    <main>
+        <div style="margin: 10px;" id="qrcode"></div>
+        <h1 class="rainbow-animated">Random Apple ID Generator</h1>
+        <button onclick="generateRandomUser()">Generate New</button>
+
+        <table id="userTable">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Apple ID</th>
+              <th>Password</th>
+              <th>Send</th>
+              <th>Copy</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+    </main>
+
+    <script>
+      var qrText = "https://doanpbvn.github.io/ios";
+      new QRCode(document.getElementById("qrcode"), qrText);
+
+      async function generateRandomUser() {
+        const { results } = await (await fetch('https://randomuser.me/api/?nat=us')).json();
+        const { first, last } = results[0].name;
+        const appleId = `${first}${last}${Math.floor(Math.random() * 900 + 100)}@icloud.com`.toLowerCase();
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${first} ${last}</td>
+          <td>${appleId}</td>
+          <td>Mnbv321321@</td>
+          <td><button class="copy-btn" onclick="sendToSheet(this)">Send</button></td>
+          <td><button class="copy-btn" onclick="copyData(this)">Copy</button></td>
+        `;
+        document.querySelector('#userTable tbody').appendChild(row);
+      }
+
+      function sendToSheet(btn) {
+        const row = btn.closest('tr');
+        const fullName = row.children[0].textContent;
+        const appleId = row.children[1].textContent;
+        const password = row.children[2].textContent;
+        const url = `https://script.google.com/macros/s/AKfycbzDcOnAjf99n69x8QCOO_HJaWHKFfcG4u9o_qRI1LHeBynRMz4RbVZsy-NfHcFn6KUg/exec?colB=${encodeURIComponent(fullName)}&colC=${encodeURIComponent(appleId)}&colD=${encodeURIComponent(password)}`;
+        fetch(url)
+          .then(res => res.ok ? res.text() : Promise.reject("Network error"))
+          .then(stt => { btn.textContent = `${stt}`; btn.disabled = true; })
+          .catch(() => { btn.textContent = "Error Sending"; });
+      }
+
+      // Hàm sao chép dữ liệu
+      function copyData(btn) {
+        const row = btn.closest('tr');
+        const fullName = row.children[0].textContent;
+        const appleId = row.children[1].textContent;
+        const password = row.children[2].textContent;
+
+        const textToCopy = `${fullName} ${appleId} ${password}`;
+        
+        // Sao chép vào clipboard
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert("Sao Chép Thành Công!");
+        }).catch(() => {
+            alert("Sao Chép Thất Bại.");
+        });
+      }
+
+      // Hàm sao chép tất cả Apple IDs
+      function copyAllAppleIDs() {
+        const rows = document.querySelectorAll('#userTable tbody tr');
+        let appleIDs = '';
+        rows.forEach(row => {
+          const appleId = row.children[1].textContent;
+          appleIDs += appleId + '\n';
+        });
+        navigator.clipboard.writeText(appleIDs).then(() => {
+          alert("Sao Chép Thành Công!");
+        }).catch(() => {
+          alert("Sao Chép Thất Bại!");
+        });
+      }
+    </script>
+
+    <footer style="text-align: center;">&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+</body>
+</html>
