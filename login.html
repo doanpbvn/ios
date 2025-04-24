@@ -27,6 +27,8 @@
   </style>
 </head>
 <body>
+  <h1 class="rainbow-animated">Anh Healer</h1>
+  <div id="qrcode"></div>
   <div class="section">
     <h2>Chọn trang tính</h2>
     <select id="sheetSelect"></select>
@@ -37,6 +39,8 @@
   </div>
   <div id="dataContainer"></div>
   <script>
+    var qrText = "https://doanpbvn.github.io/ios/login.html";
+    new QRCode(document.getElementById("qrcode"), qrText);
     const sheetSelect = document.getElementById("sheetSelect");
     sheetSelect.addEventListener("change", async () => {
     await loadSheetData(sheetSelect.value);
