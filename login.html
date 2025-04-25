@@ -25,20 +25,28 @@
     .icon-success { color: green; align-items: center; text-transform: uppercase; }
     .icon-error { color: red; }
     #reloadSheet { text-align: center; }
+    input[type="radio"] {display: none;}
   </style>
 </head>
 <body>
   <h1 class="rainbow-animated">Anh Healer</h1>
-  <div id="qrcode"></div>
   <div class="section">
-    <h2>Chọn trang tính</h2>
+    <h2>Chọn Trang Tính</h2>
     <select id="sheetSelect"></select>
     <div id="reloadSheet"></div>
+    <p style="color: red;"> ĐANG TÉT 😊<br> Anh Healer không dùng tránh lỗi!</Header>!</p>
+    <div class="data-row">
+      <input type="radio" name="giftType" value="Mã 2FA Tiktok" checked>
+      <input type="text" id="inputData" placeholder="Nhập mã 2FA muốn lưu">
+      <button onclick="sendGiftToSheet('Sheet1')">Lưu Mã</button>
+    </div>
     <input type="number" id="rowInput" placeholder="Nhập số hàng (VD: 2)" />
     <button onclick="displayData()">Lấy dữ liệu</button>
     <button id="updateButton" style="display: none;">ReloadData</button>
   </div>
   <div id="dataContainer"></div>
+  <div id="qrcode"></div>
+
   <script>
     var qrText = "https://doanpbvn.github.io/ios/login.html";
     new QRCode(document.getElementById("qrcode"), qrText);
@@ -55,7 +63,51 @@
             updatedData.push(value);
         });
         await updateData(sheetName, rowIndex, updatedData);
-    };  
+    };
+    const radios = document.querySelectorAll('.columns input[type="radio"]');
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      radios.forEach(r => r.parentElement.classList.remove('active'));
+      radio.parentElement.classList.add('active');
+    });
+  });
+
+  let isSubmitting = false;
+
+  function sendGiftToSheet(sheetName) {
+    if (isSubmitting) {
+      alert("Đang gửi. Không bấm gửi lại !");
+      return;
+    }
+
+    const inputData = document.getElementById("inputData").value.trim();
+    const selectedType = document.querySelector('input[name="giftType"]:checked')?.value;
+    if (!inputData) return alert("Vui lòng nhập link gift");
+    if (!selectedType) return alert("Vui lòng chọn loại gift");
+
+    isSubmitting = true;
+    setTimeout(() => {
+      isSubmitting = false;
+    }, 5000);
+
+    const params = new URLSearchParams({
+      sheet: sheetName,
+      type: selectedType,
+      link: inputData
+    });
+    const fullURL = "https://script.google.com/macros/s/AKfycbxBduMz54Rd-3c1Pvz8k5AdEvXHF-JyVJF3dGKHeCfdYuor3SeS1du6teBmYBzcKPaPSQ/exec?" + params.toString();
+
+    fetch(fullURL)
+      .then(res => res.ok ? res.text() : Promise.reject('Fetch lỗi'))
+      .then(data => {
+        alert(`✅ Lưu Thành Công ${data}`);
+        location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Có lỗi xảy ra, vui lòng thử lại!");
+      });
+  }
 </script>
 </body>
 </html>
