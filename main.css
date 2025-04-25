@@ -112,6 +112,12 @@ img {
 }
 
 /* ==== Flexbox Utilities ==== */
+hr {
+  border: none;
+  height: 2px;
+  background-color: #ccc;
+  margin: 20px 0;
+}
 .title,
 .btn,
 .text_URL {
