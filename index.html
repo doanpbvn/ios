@@ -13,6 +13,15 @@
         footer ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 15px; flex-wrap: wrap; }
         footer ul li a { width: 100%; background-color: #fff; border: none; }
         hr {border: none;height: 2px;background-color:#06c1db;margin: 20px 0;}
+        p {text-align: center;}
+        button { background-color: #00ffff; }
+        .feedback {
+    display: none;
+    color: green;
+    margin-top: 4px;
+    font-size: 14px;
+    text-align: center;
+  }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
@@ -25,22 +34,17 @@
         <div class="Copy_Text">
             <button class="btn" id="toggleBtn">Hiện Copy Text</button>
             <div id="showBtn">
-                <fieldset class="btn"><input value="/private/var/mobile/Library/Preferences/iFakePro/session"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="/private/var/mobile/Library/ADManager"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="gamecuabi@yopmail.com Passdaimoiduoc1@"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="p4679657 Mnbv321321"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="lumpocoal333.ca@icloud.com Mnbv321321@"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="aaron.long1979@icloud.com Mnbv321321"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="kieunhutrung6@gmail.com Zxcv123123@"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="timthomas660@icloud.com Mnbv321321"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="averyallen16@icloud.com Mnbv321321"><button>Copy Text</button></fieldset>
-                <fieldset class="btn"><input value="xoainfo.com/rootless"><button>Copy Text</button></fieldset>
+                <div class="copy-block"><fieldset class="btn"><input value="p4103222 Mnbv321321"><button>Copy PIA New</button></fieldset><span class="feedback">Đã sao chép!</span></div>
+                <div class="copy-block"><fieldset class="btn"><input value="p4679657 Mnbv321321"><button>Copy PIA</button></fieldset><span class="feedback">Đã sao chép!</span></div>
+                <div class="copy-block"><fieldset class="btn"><input value="alspaughdagleao148@gmail.com Mjnhzaza01@"><button>Pord VPN</button></fieldset><span class="feedback">Đã sao chép!</span></div>
+                <div class="copy-block"><fieldset class="btn"><input value="kieunhutrung6@gmail.com Zxcv123123@"><button>Copy AppleID</button></fieldset><span class="feedback">Đã sao chép!</span></div>
+                <div class="copy-block"><fieldset class="btn"><input value="averyallen16@icloud.com Mnbv321321"><button>Copy AppleID</button></fieldset><span class="feedback">Đã sao chép!</span></div>
             </div>
         </div>
         <div class="dowload">
             <a class="text_URL" href="./login.html" target="_blank"><img class="icon" alt="img" src="./image/appstore.png">Login Acc Tiktok</a>
-            <fieldset class="btn"><input value="lessmqdj j8oln4wsb2o9"><button>Copy Text</button></fieldset>
-            <fieldset class="btn"><input value="/rootfs/var/mobile/Media/XoaInfo"><button>Copy Text</button></fieldset>
+            <div class="copy-block"><fieldset class="btn"><input value="lessmqdj j8oln4wsb2o9"><button>Copy Text</button></fieldset><span class="feedback">Đã sao chép!</span></div>
+            <div class="copy-block"><fieldset class="btn"><input value="/rootfs/var/mobile/Media/XoaInfo"><button>Copy Text</button></fieldset><span class="feedback">Đã sao chép!</span></div>
             <hr>
             <a class="text_URL" href="./src/data-full.zip"><img class="icon" alt="img" src="./image/downloads.png">Download Data Settings</a>
             <a class="text_URL" href="sileo://source/https://xoainfo.com/roothide/"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Add Sileo XoaInfo-Hide</a>
@@ -94,14 +98,27 @@
         new QRCode(document.getElementById("qrcode"), qrText);
         
         // Copy Text
-        document.addEventListener('click', e => {
-            if (e.target.tagName === 'BUTTON') {
-                const input = e.target.previousElementSibling;
-                if (input?.tagName === 'INPUT') {   navigator.clipboard.writeText(input.value).catch(console.error);    }
-            }
+        document.querySelectorAll('.copy-block').forEach((block) => {
+            const input = block.querySelector('input');
+            const button = block.querySelector('button');
+            const feedback = block.querySelector('.feedback');
+
+            button.addEventListener('click', () => {
+            navigator.clipboard.writeText(input.value)
+                .then(() => {
+                feedback.style.display = 'block';
+                feedback.style.opacity = '1';
+                setTimeout(() => {
+                    feedback.style.opacity = '0';
+                    setTimeout(() => {
+                    feedback.style.display = 'none';
+                    }, 300);
+                }, 1500);
+                })
+                .catch(err => console.error('Lỗi sao chép:', err));
+            });
         });
 
-        // Toggle Button to show/hide Copy Text section
         const toggleBtn = document.getElementById('toggleBtn');
         const showBtn = document.getElementById('showBtn');
         toggleBtn.addEventListener('click', () => {
@@ -109,47 +126,6 @@
             showBtn.style.display = isVisible ? 'none' : 'block';
             toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
         });
-
-        // DNS List Fetching and Random IP selection
-        let ipList = [];
-        async function fetchDNSList() {
-            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://public-dns.info/nameserver/jp.html");
-            const displayElement = document.getElementById("randomDNS");
-            try {
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, "text/html");
-                const rows = doc.querySelectorAll("table tbody tr");
-                const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/; // Regex for valid IPv4 addresses
-                ipList = Array.from(rows)
-                    .map(row => row.querySelector("td").textContent.trim())
-                    .filter(ip => ipRegex.test(ip)); // Filter only valid IPs
-                if (ipList.length > 0) {setRandomIP();} else {displayElement.textContent = "No valid IP addresses found.";}
-            } 
-            catch (error) {console.error("Error fetching DNS list:", error);displayElement.textContent = "Error loading DNS data.";}
-        }
-
-        function setRandomIP() {
-            if (ipList.length > 0) {
-                const randomIP = ipList[Math.floor(Math.random() * ipList.length)];
-                document.getElementById("randomDNS").textContent = randomIP;
-                return randomIP;
-            }
-            return null;
-        }
-
-        function copyToClipboard() {
-            const ip = document.getElementById("randomDNS").textContent;
-            if (ip && ip !== "Error loading DNS data." && ip !== "No valid IP addresses found.") {
-                navigator.clipboard.writeText(ip).then(() => {
-                    alert("Sao Chép Thành Công: " + ip);
-                    setRandomIP(); // Change to a new random IP after copying
-                }).catch((error) => {alert("Failed to copy: " + error);});
-            } else {alert("No valid IP address to copy.");}
-        }
-        // Load the DNS list on page load
-        window.onload = fetchDNSList;
     </script>
 </body>
 </html>
