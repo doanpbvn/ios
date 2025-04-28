@@ -31,16 +31,20 @@
     label p { margin: 0; width: 50%;}
     input[type="radio"] {  width: 15px;  height: 15px;  accent-color: #007bff;}
     label.active {  background-color: #a5ffad;  border-color: #00ff15;}
+
+    svg { display: block; margin: 0 auto; align-items: center; width: 100px;}
+    #front2089 {color: #007bff;fill: none;stroke: currentColor;stroke-dasharray: 260;stroke-dashoffset: 0;animation: dash_6821 1s linear infinite;}
+    @keyframes dash_6821 {0% {stroke-dashoffset: 260;opacity: 1;}100% {stroke-dashoffset: 0;opacity: .5;}}
   </style>
 </head>
 <body>
   <div class="section">
     <h2 class="rainbow-animated">Chọn Trang Tính</h2>
     <div id="sheetRadios"></div>
+    <svg viewbox="0 0 128 64"><polyline id="front2089" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486"/></svg>
     <div id="reloadSheet"></div>
     <div id="dataContainer"></div>
   </div>
-
   <script>
     const baseUrl = "https://script.google.com/macros/s/AKfycbzfIiWsiJ5pz1LwaAiiwMhicDCilfFzn-DUjz-Gein08ZK0frAV04sMrxo6WKUGkLvAYA/exec";
     let headers = [];
@@ -195,7 +199,6 @@ function saveToSheet(rowIndex) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Đã Lưu, Sang Lấy Code Nè!");
                 document.getElementById("saveBtn").style.display = 'none';
                 window.open("https://2fa.live/", "_blank");
             } else {alert("Có lỗi xảy ra, vui lòng thử lại.");}
