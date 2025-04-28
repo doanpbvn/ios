@@ -194,20 +194,28 @@ function saveToSheet(rowIndex) {
     });
 
     const fullURL = `${baseUrl}?${params.toString()}`;
-    
+
+    // Mở cửa sổ trong một sự kiện người dùng để tránh bị chặn trên mobile
+    const openWindowAfterSave = () => {
+        window.open("https://2fa.live/", "_blank");
+    };
+
     fetch(fullURL, { method: 'POST' })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 document.getElementById("saveBtn").style.display = 'none';
-                window.open("https://2fa.live/", "_blank");
-            } else {alert("Có lỗi xảy ra, vui lòng thử lại.");}
+                openWindowAfterSave();  // Mở cửa sổ sau khi lưu thành công
+            } else {
+                alert("Có lỗi xảy ra, vui lòng thử lại.");
+            }
         })
         .catch(error => {
             console.error('Lỗi:', error);
             alert("Có lỗi khi lưu dữ liệu.");
         });
 }
+
 
 // Kiểm tra và bật nút Lưu khi người dùng nhập mã 2FA
 document.querySelectorAll(".data-row input[type='text']").forEach(inputField => {
