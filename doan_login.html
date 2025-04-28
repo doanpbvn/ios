@@ -1,3 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#eee">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>iOS Support - Đoàn</title>
+  <link rel="icon" type="image/png" href="./image/appstore.png">
+  <link rel="stylesheet" href="./main.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { background-color: #fff; }
+    h4  { text-align: left; }
+    a, p { font-weight: bold; margin: 10px; font-size: 18px; width: 70%; text-align: center;}
+    span { font-weight: bold; margin: 10px; font-size: 18px; width: 70%; }
+    .text_URL { border: 1px solid #ccc }
+    .section { width: 100%; padding: 5px; background-color: #fff; margin: 10px 0; border: 1px dashed #ccc; }
+    .section input { width: 100%; border: 1px solid #ccc; margin: 10px 0; }
+    .section button { width: 100%; height: 35px; background-color: #eee; }
+    .data-row { max-height: 30px; display: flex; align-items: center; gap: 5px; margin: 10px; }
+    .data-row input { background-color: #fff; padding: 5px; border-radius: 5px; color: #555; }
+    .data-row button { width: 40%; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+    .copy-feedback { display: none; color: green; font-weight: bold; transition: opacity 0.3s ease; }
+    select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px; text-align: center; }
+    .loading { color: blue;}
+    .icon-success { color: green;}
+    .icon-error { color: red;}
+    #reloadSheet { text-align: center; margin: 15px; }
+    label { max-height: 50px; display: flex;  align-items: center;  gap: 8px;  border: 1px solid #ccc;  margin: 5px;  padding: 5px 10px;}
+    label p { margin: 0; width: 50%;}
+    input[type="radio"] {  width: 15px;  height: 15px;  accent-color: #007bff;}
+    label.active {  background-color: #a5ffad;  border-color: #00ff15;}
+
+    svg { display: block; margin: 0 auto; align-items: center; width: 100px;}
+    #front2089 {color: #007bff;fill: none;stroke: currentColor;stroke-dasharray: 260;stroke-dashoffset: 0;animation: dash_6821 1s linear infinite;}
+    @keyframes dash_6821 {0% {stroke-dashoffset: 260;opacity: 1;}100% {stroke-dashoffset: 0;opacity: .5;}}
+  </style>
+</head>
+<body>
+  <div class="section">
+    <h2 class="rainbow-animated">Chọn Trang Tính</h2>
+    <div id="sheetRadios"></div>
+    <svg viewbox="0 0 128 64"><polyline id="front2089" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486"/></svg>
+    <div id="reloadSheet"></div>
+    <div id="dataContainer"></div>
+  </div>
+  <script>
+    const baseUrl = "https://script.google.com/macros/s/AKfycbzfIiWsiJ5pz1LwaAiiwMhicDCilfFzn-DUjz-Gein08ZK0frAV04sMrxo6WKUGkLvAYA/exec";
+    let headers = [];
+    let sheetData = [];
+    let selectedSheet = ""; // Biến toàn cục lưu trang tính được chọn
+
+    async function loadSheetData(sheetName) {
+    const container = document.getElementById("reloadSheet");
+    const loadingText = document.createElement("span");
+    loadingText.classList.add("loading-text");
+    loadingText.innerHTML = `<span class = "loading">Đang load ${sheetName} <span class="percent">0%</span></span>`;
+    container.innerHTML = '';
+    container.appendChild(loadingText);
+    let percent = 0;
+    const percentElement = loadingText.querySelector(".percent");
+    const updatePercent = () => {if (percent < 100) {percent += 1;percentElement.innerHTML = `${percent}%`;}};
+    const loadingInterval = setInterval(updatePercent, 50);
+    try {
+        const res = await fetch(`${baseUrl}?sheet=${sheetName}`);
+        const json = await res.json();
+        headers = json.headers;
+        sheetData = json.data;
+        clearInterval(loadingInterval);
+        container.innerHTML = `<i class="fas fa-check-circle fa-lg icon-success"> Load Xong ${sheetName}!</i>`;
+        displayData();
+    } catch (error) {
+        clearInterval(loadingInterval);
+        container.innerHTML = `<i class="fas fa-times-circle fa-lg icon-error">Reload Lỗi!</i>`;
+    }
+}
+
+function displayData() {
+    const container = document.getElementById("dataContainer");
+    container.innerHTML = "";
+
+    // Hiển thị dữ liệu từ Google Sheets
+    for (let rowIndex = 0; rowIndex < sheetData.length; rowIndex++) {
+        const row = sheetData[rowIndex];
+        if (!row[1]) {
+            let html = `<div class="section"><div class="data-row"><p>Hàng số ${rowIndex + 2}</p><button id="doneButton-${rowIndex + 2}" onclick="sendDoneToSheet('${selectedSheet}', ${rowIndex + 2})">Đã làm!</button></div></div>`;
+            headers.forEach((header, index) => {
+                if (index === 0) return;
+                const value = row[index] || "";
+                html += `
+                    ${index === 3
+                    ? `<div class="section">
+                        <h4 for="inputdata">Mã 2FA</h4>
+                        <div class="data-row">
+                            <input id="inputdata" type="text" placeholder="Nhập mã 2FA" /><button id="saveBtn" class="btn btn-save" onclick="saveToSheet(${rowIndex + 2})">Lưu Mã</button>
+                        </div>
+                        <a style="display: none; class="text_URL" href="https://2fa.live/" target="_blank">Lấy Code</a>
+                        </div>`
+                    : `<div class="section">
+                        <h4 for="accountData${index}">${header}</h4>
+                        <div class="data-row">
+                            <input value="${value}" id="accountData${index}" readonly>
+                            <button class="btn btn-copy" type="button" onclick="copyText('accountData${index}', '${value}')"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <span id="feedback-accountData${index}" class="copy-feedback">Đã copy: ${header}!</span>
+                    </div>`
+                    }
+                `;
+            });
+            container.innerHTML = html;
+            break;
+        }
+    }
+}
+
+    function copyText(elementId, value) {
+        navigator.clipboard.writeText(value)
+        .then(() => {
+            const feedback = document.getElementById(`feedback-${elementId}`);
+            if (feedback) {
+                feedback.style.display = 'inline';
+                feedback.style.opacity = '1';
+                setTimeout(() => {
+                    feedback.style.opacity = '0';
+                    setTimeout(() => feedback.style.display = 'none', 300);
+                }, 3000);
+            }
+        })
+        .catch(err => console.error('Lỗi sao chép:', err));
+    }
+    document.addEventListener("DOMContentLoaded", async () => {
+    const res = await fetch(baseUrl);
+    const json = await res.json();
+    json.sheetNames.forEach(name => {
+        const radioContainer = document.createElement("label");
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "sheetRadio";
+        radio.value = name;
+        radio.id = `sheet-${name}`;
+        radio.onclick = async () => {
+            selectedSheet = name;
+            await loadSheetData(name);
+        };
+        const p = document.createElement("span");
+        p.innerText = name;
+        radioContainer.appendChild(radio);
+        radioContainer.appendChild(p);
+        document.getElementById("sheetRadios").appendChild(radioContainer);
+    });
+
+    document.querySelector('input[name="sheetRadio"]').checked = true;
+    selectedSheet = document.querySelector('input[name="sheetRadio"]:checked').value;
+    await loadSheetData(selectedSheet);
+});
+
+
+function sendDoneToSheet(sheetName, rowIndex) {
+    const doneValue = "Đã làm";
+    const params = new URLSearchParams({sheet: sheetName,row: rowIndex,type: doneValue});
+    const fullURL = `${baseUrl}?${params.toString()}`;
+    fetch(fullURL, { method: 'POST' })
+        .then(res => res.ok ? res.text() : Promise.reject('Fetch lỗi'))
+        .then(() => {
+            const button = document.querySelector(`#doneButton-${rowIndex}`);
+            if (button) {button.innerHTML = "Làm Xong!";button.style.backgroundColor = "#28a745";button.disabled = true;}
+            setTimeout(() => {loadSheetData(sheetName);}, 2000);
+        })
+        .catch(err => {button.innerHTML = "Lỗi, Kiểm tra lại nhé!";});
+}
+
+function enableSaveButton(elementId) {
+    const inputField = document.getElementById(elementId);
+    const saveButton = document.getElementById("saveBtn");
+    if (inputField.value.trim() !== "") {saveButton.style.display = "inline";} else {saveButton.style.display = "none";}
+}
+
+// Hàm để lưu mã 2FA lên Google Sheets
 function saveToSheet(rowIndex) {
     const inputElement = document.getElementById("inputdata");
     const twofaValue = inputElement.value.trim();  // Lấy giá trị nhập mã 2FA
@@ -38,3 +217,23 @@ function saveToSheet(rowIndex) {
             alert("Có lỗi khi lưu dữ liệu.");
         });
 }
+
+
+
+// Kiểm tra và bật nút Lưu khi người dùng nhập mã 2FA
+document.querySelectorAll(".data-row input[type='text']").forEach(inputField => {
+    inputField.addEventListener("input", () => {
+        const rowIndex = inputField.id.split('-')[1];
+        enableSaveButton(rowIndex);
+    });
+});
+
+function enableSaveButton(rowIndex) {
+    const inputField = document.getElementById(`accountData2-${rowIndex}`);
+    const saveButton = document.getElementById(`saveBtn-${rowIndex}`);
+    // Nếu có giá trị trong ô mã 2FA, hiển thị nút lưu
+    if (inputField.value.trim() !== "") {saveButton.style.display = "inline";} else {saveButton.style.display = "none";}
+}
+  </script>
+</body>
+</html>
