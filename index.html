@@ -7,118 +7,132 @@
     <title>iOS Support - Đoàn</title>
     <link rel="icon" type="image/png" href="./image/appstore.png">
     <link rel="stylesheet" href="./main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         #showBtn { display: none; margin: 10px; }
         #randomDNS { font-weight: bold; color: #06c1db; }
-        .social-media-list { list-style: none; display: flex; flex-wrap: wrap; gap: 5px; margin: 5px;}
-        .social-media { width: 100%; background-color: #fff; border: none; border: 1px dashed #ccc; }
         hr {border: none;height: 2px;background-color:#06c1db;margin: 20px 0;}
         p {text-align: center;}
-        button { background-color: #00ffff; }
-        .feedback {display: none;    color: green;    margin-top: 4px;    font-size: 14px;    text-align: center;  }
+        .feedback {display: none;    color: green;  padding: 10px;  margin-top: 4px;    font-size: 14px;    text-align: center;  font-weight: bold;}
         .rainbow-animated { margin: 0; padding: 0;}
+        .row { width: 90%; border: 1px solid #ccc; }
+        .row img {  max-width: 35px;  padding: 0 5px;  margin: 0; } 
+        a block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
 <body>
-    <main>
-        <div class="header">
-            <h1 class="rainbow-animated">Phạm Bình Đoàn</h1>
-            <div id="qrcode"></div>
+    <div class="header">
+        <h1 class="rainbow-animated" style="text-align: center;">Phạm Bình Đoàn</h1>
+        <div id="qrcode"></div>
+    </div>
+    <div class="Copy_Text">
+        <button class="btn" id="toggleBtn">Hiện Copy Text</button>
+        <div id="showBtn">
+        <block><input value="p4103222 Mnbv321321" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
+        <block><input value="p4679657 Mnbv321321" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
+        <block><input value="alspaughdagleao148@gmail.com Mjnhzaza01@" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
+        <block><input value="kieunhutrung6@gmail.com Zxcv123123@" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
+        <block><input value="averyallen16@icloud.com Mnbv321321" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
         </div>
-        <div class="Copy_Text">
-            <button class="btn" id="toggleBtn">Hiện Copy Text</button>
-            <div id="showBtn">
-                <div class="copy-block"><fieldset class="btn"><input value="p4103222 Mnbv321321"><button>Copy PIA New</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-                <div class="copy-block"><fieldset class="btn"><input value="p4679657 Mnbv321321"><button>Copy PIA</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-                <div class="copy-block"><fieldset class="btn"><input value="alspaughdagleao148@gmail.com Mjnhzaza01@"><button>Pord VPN</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-                <div class="copy-block"><fieldset class="btn"><input value="kieunhutrung6@gmail.com Zxcv123123@"><button>Copy AppleID</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-                <div class="copy-block"><fieldset class="btn"><input value="averyallen16@icloud.com Mnbv321321"><button>Copy AppleID</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-            </div>
+    </div>
+    <div class="section">
+        <hr>
+        <a class="textURL" href="./doan_login.html" target="_blank"><img class="icon" alt="icon" src="./image/appstore.png">Login Acc Tiktok - Đoàn</a>
+        <a class="textURL" href="./cu_login.html" target="_blank"><img class="icon" alt="icon" src="./image/appstore.png">Login Acc Tiktok - Anh Healer</a>
+        <a class="textURL" href="https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43" target="_blank"><img class="icon" alt="icon" src="./image/shortcut.png">Add Shortcut Tiktok 60p</a>
+        <block><input value="hsrnnnmo r80k864pgw2t" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
+        <block><input value="/rootfs/var/mobile/Media/XoaInfo" readonly><button class="fas fa-copy"></button><span class="feedback">Đã copy!</span></block>
         </div>
-        <div class="dowload">
-            <a class="text_URL" href="./doan_login.html" target="_blank"><img class="icon" alt="img" src="./image/appstore.png">Login Acc Tiktok - Đoàn</a>
-            <a class="text_URL" href="./login.html" target="_blank"><img class="icon" alt="img" src="./image/appstore.png">Login Acc Tiktok - Anh Healer</a>
-            <a class="text_URL" href="https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43" target="_blank"><img class="icon" alt="img" src="./image/shortcut.png">Add Shortcut Tiktok 60p</a>
-            <div class="copy-block"><fieldset class="btn"><input value="hsrnnnmo r80k864pgw2t"><button>Copy Text</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-            <div class="copy-block"><fieldset class="btn"><input value="/rootfs/var/mobile/Media/XoaInfo"><button>Copy Text</button></fieldset><span class="feedback">Đã sao chép!</span></div>
-            <hr><h4 class="rainbow-animated">Cài Máy Mới</h4>
-            <a class="text_URL" href="https://www.mediafire.com/file/4jjq2t5g0ijs09p/roothide-Dopamine2-v17.tipa" target="_blank"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Download Dopamine Hide</a>
-            <a class="text_URL" href="sileo://source/https://xoainfo.com/roothide/"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Add Source Sileo (https://xoainfo.com/roothide/)</a>
-            <a class="text_URL" href="./src/TrollFools_3.6-39.tipa" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download TrollFood</a>
-            <a class="text_URL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" alt="img" src="./image/downloads.png">Download Tiêm Proxy</a>
-            <hr><h4 class="rainbow-animated">Dowload</h4>
-            <a class="text_URL" href="./src/data-full.zip"><img class="icon" alt="img" src="./image/downloads.png">Download Data Settings</a>
-            <a class="text_URL" href="sileo://source/https://xoainfo.com/rootless/"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Add Sileo XoaInfo-Less</a>
-            <a class="text_URL" href="https://ellekit.space/dopamine/" target="_blank"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Dowload Dopamine</a>
-            <a class="text_URL" href="https://taurine.app/" target="_blank"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Dowload Taurine</a>
-            <hr><h4 class="rainbow-animated">Setting</h4>
-            <a class="text_URL" href="http://localhost/data.html" target="_blank"><img class="icon" alt="img" src="./image/XAMPP.webp">Localhost</a>
-            <a class="text_URL" href="./generate.html" target="_blank"><img class="icon" alt="img" src="./image/appstore.png">Apple ID Generator</a>
-            <a class="text_URL" href="./gift.html" target="_blank"><img class="icon" alt="img" src="./image/Bookmarklet.png">Lưu Gift</a>
-            <a class="text_URL" href="./backup.html" target="_blank"><img class="icon" alt="img" src="./image/Bookmarklet.png">Tạo Bookmarklet</a>
-            <a class="text_URL" href="./qr.html" target="_blank"><img class="icon" alt="img" src="./image/add-qr.png">Tạo QR Code</a>
-            <a class="text_URL" href="./dns.html" target="_blank"><img class="icon" alt="img" src="./image/add-qr.png">Copy DNS Japan</a>
-            <hr>
-            <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollrestore/" target="_blank"><img class="icon" alt="img" src="./image/TrollStore.jpg">Add TrollStore For PC-Mac</a>
-            <a class="text_URL" href="https://ios.cfw.guide/installing-trollstore-trollhelperota/" target="_blank"><img class="icon" alt="img" src="./image/TrollStore.jpg">TrollHelperOTA</a>
-            <hr>
-            <a class="text_URL" href="https://havoc.app/package/trollfools/" target="_blank"><img class="icon" alt="img" src="./image/trollfood.webp">TrollFools New</a>
-            <a class="text_URL" href="sileo://source/https://tigisoftware.com/repo/" target="_blank"><img class="icon" alt="img" src="https://getsileo.app/img/icon.png">Add Tigisoftware Sileo</a>
-            <a class="text_URL" href="https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9" target="_blank"><img class="icon" alt="img" src="./image/shortcut.png">Add Shortcut Tiktok 30p</a>
-            <hr>
-            <ul class="social-media-list">
-                <li><a class="social-media" href="https://www.facebook.com/doanpb.tb" target="_blank"><img src="https://img.icons8.com/fluent/24/facebook-new.png" alt="Facebook"></a></li>
-                <li><a class="social-media" href="https://www.instagram.com/doan.pb" target="_blank"><img src="https://img.icons8.com/fluent/24/instagram-new.png" alt="Instagram"></a></li>
-                <li><a class="social-media" href="https://www.x.com/doanpb" target="_blank"><img src="https://img.icons8.com/ios-filled/24/x.png" alt="X"></a></li>
-                <li><a class="social-media" href="https://www.github.com/doanpb" target="_blank"><img src="https://img.icons8.com/fluent/24/github.png" alt="Github"></a></li>
-                <li><a class="social-media" href="https://t.me/kingcrabb" target="_blank"><img src="https://img.icons8.com/fluent/24/telegram-app.png" alt="Telegram"></a></li>
-                <li><a class="social-media" href="https://www.tiktok.com/@doanpb" target="_blank"><img src="https://img.icons8.com/fluent/24/tiktok.png" alt="Tiktok"></a></li>
-                <li><a class="social-media" href="https://www.youtube.com/@doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/youtube-play.png" alt="Youtube"></a></li>
-                <li><a class="social-media" href="https://www.twitch.tv/doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/twitch.png" alt="Twitch"></a></li>
-                <li><a class="social-media" href="https://discord.com/doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/discord-logo.png" alt="Discord"></a></li>
-                <li><a class="social-media" href="https://www.snapchat.com/add/doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/snapchat.png" alt="Snapchat"></a></li>
-                <li><a class="social-media" href="https://www.pinterest.com/doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/pinterest.png" alt="Pinterest"></a></li>
-                <li><a class="social-media" href="https://www.linkedin.com/in/doanpbvn" target="_blank"><img src="https://img.icons8.com/fluent/24/linkedin.png" alt="LinkedIn"></a></li>
-            </ul>
-            <hr>
-        </div>
-    </main>
+    <div class="section">
+        <hr><h4 class="rainbow-animated">Cài Máy Mới</h4>
+        <a class="textURL" href="https://www.mediafire.com/file/4jjq2t5g0ijs09p/roothide-Dopamine2-v17.tipa" target="_blank"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Download Dopamine Hide</a>
+        <a class="textURL" href="sileo://source/https://xoainfo.com/roothide/"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Add Source Sileo Xoainfo Hide</a>
+        <a class="textURL" href="./src/TrollFools_3.6-39.tipa" target="_blank"><img class="icon" alt="icon" src="./image/downloads.png">Download TrollFood</a>
+        <a class="textURL" href="./src/ProxyScreenshotBypass_0106.dylib" target="_blank"><img class="icon" alt="icon" src="./image/downloads.png">Download Tiêm Proxy</a>
+    </div>
+    <div class="section">
+        <hr><h4 class="rainbow-animated">Dowload</h4>
+        <a class="textURL" href="./src/data-full.zip"><img class="icon" alt="icon" src="./image/downloads.png">Download Data Settings</a>
+        <a class="textURL" href="sileo://source/https://xoainfo.com/rootless/"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Add Sileo XoaInfo-Less</a>
+        <a class="textURL" href="https://ellekit.space/dopamine/" target="_blank"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Dowload Dopamine</a>
+        <a class="textURL" href="https://taurine.app/" target="_blank"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Dowload Taurine</a>
+    </div>
+    <div class="section">
+        <hr><h4 class="rainbow-animated">Setting</h4>
+        <a class="textURL" href="http://localhost/data.html" target="_blank"><img class="icon" alt="icon" src="./image/XAMPP.webp">Localhost</a>
+        <a class="textURL" href="./generate.html" target="_blank"><img class="icon" alt="icon" src="./image/appstore.png">Apple ID Generator</a>
+        <a class="textURL" href="./gift.html" target="_blank"><img class="icon" alt="icon" src="./image/Bookmarklet.png">Lưu Gift</a>
+        <a class="textURL" href="./backup.html" target="_blank"><img class="icon" alt="icon" src="./image/Bookmarklet.png">Tạo Bookmarklet</a>
+        <a class="textURL" href="./qr.html" target="_blank"><img class="icon" alt="icon" src="./image/add-qr.png">Tạo QR Code</a>
+        <a class="textURL" href="./dns.html" target="_blank"><img class="icon" alt="icon" src="./image/add-qr.png">Copy DNS Japan</a>
+    </div>
+    <div class="section">
+        <a class="textURL" href="https://ios.cfw.guide/installing-trollstore-trollrestore/" target="_blank"><img class="icon" alt="icon" src="./image/TrollStore.jpg">Add TrollStore For PC-Mac</a>
+        <a class="textURL" href="https://ios.cfw.guide/installing-trollstore-trollhelperota/" target="_blank"><img class="icon" alt="icon" src="./image/TrollStore.jpg">TrollHelperOTA</a>
+    </div>
+    <div class="section">
+        <a class="textURL" href="https://havoc.app/package/trollfools/" target="_blank"><img class="icon" alt="icon" src="./image/trollfood.webp">TrollFools New</a>
+        <a class="textURL" href="sileo://source/https://tigisoftware.com/repo/" target="_blank"><img class="icon" alt="icon" src="https://getsileo.app/img/icon.png">Add Tigisoftware Sileo</a>
+        <a class="textURL" href="https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9" target="_blank"><img class="icon" alt="icon" src="./image/shortcut.png">Add Shortcut Tiktok 30p</a>
+    </div>
+    <hr>
+    <div class="social-media-list">
+        <ur class="social">
+            <li><a class="textURL" href="https://www.facebook.com/doanpb.tb" target="_blank"><img class="icon" src="https://img.icons8.com/fluent/24/facebook-new.png" alt="Facebook">Facebook</a></li>
+            <li><a class="textURL" href="https://t.me/kingcrabb" target="_blank"><img class="icon" src="https://img.icons8.com/fluent/24/telegram-app.png" alt="Telegram">Telegram</a></li>
+            <li><a class="textURL" href="https://www.tiktok.com/@doanpb" target="_blank"><img class="icon" src="https://img.icons8.com/fluent/24/tiktok.png" alt="Tiktok">Tiktok</a></li>
+            <li><a class="textURL" href="https://www.youtube.com/@doanpbvn" target="_blank"><img class="icon" src="https://img.icons8.com/fluent/24/youtube-play.png" alt="Youtube">Youtube</a></li>
+        </ur>
+    </div>
     <footer>&copy; 2025 : Đoàn - All Rights Reserved.</footer>
     <script>
-        // QR Code Generation
-        var qrText = "https://doanpbvn.github.io/ios";
-        new QRCode(document.getElementById("qrcode"), qrText);
-        
-        // Copy Text
-        document.querySelectorAll('.copy-block').forEach((block) => {
-            const input = block.querySelector('input');
-            const button = block.querySelector('button');
-            const feedback = block.querySelector('.feedback');
+    // QR Code Generation
+    var qrText = "https://doanpbvn.github.io/ios";
+    new QRCode(document.getElementById("qrcode"), qrText);
+    
+    // Copy Text
+    document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('block').forEach((block) => {
+        const input = block.querySelector('input');
+        const button = block.querySelector('button');
+        const feedback = block.querySelector('.feedback');
 
-            button.addEventListener('click', () => {
-            navigator.clipboard.writeText(input.value)
-                .then(() => {
-                feedback.style.display = 'block';
-                feedback.style.opacity = '1';
-                setTimeout(() => {
-                    feedback.style.opacity = '0';
-                    setTimeout(() => {
-                    feedback.style.display = 'none';
-                    }, 300);
-                }, 1500);
-                })
-                .catch(err => console.error('Lỗi sao chép:', err));
-            });
-        });
+        if (!input || !button || !feedback) {return;}
 
-        const toggleBtn = document.getElementById('toggleBtn');
-        const showBtn = document.getElementById('showBtn');
-        toggleBtn.addEventListener('click', () => {
-            const isVisible = showBtn.style.display === 'block';
-            showBtn.style.display = isVisible ? 'none' : 'block';
-            toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
+        button.addEventListener('click', () => {
+        navigator.clipboard.writeText(input.value)
+        .then(() => {
+        button.style.display = 'none';
+        feedback.style.display = 'inline';
+        setTimeout(() => {
+            feedback.style.display = 'none';
+            button.style.display = 'inline-block';
+        }, 2000);
+        })
+        .catch(err => console.error('Lỗi sao chép:', err));
         });
+    });
+    });
+
+    const toggleBtn = document.getElementById('toggleBtn');
+    const showBtn = document.getElementById('showBtn');
+    toggleBtn.addEventListener('click', () => {
+        const isVisible = showBtn.style.display === 'block';
+        showBtn.style.display = isVisible ? 'none' : 'block';
+        toggleBtn.textContent = isVisible ? 'Hiện Copy Text' : 'Ẩn';
+    });
     </script>
 </body>
 </html>
