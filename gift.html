@@ -11,37 +11,67 @@
     <style>
         #showBtn {display: none; margin: 10px;}
         body {font-weight: bold;}
-        input{width: calc(100% - 10px); min-height: 50px; display: flex;  border: 1px solid #ccc;  margin: 5px; }
+        input{width: calc(100% - 10px); min-height: 50px; display: flex;  border: 1px solid #ccc;  margin: 5px; padding: 10px;}
         button {background-color: #9bffff; width: calc(100% - 10px); min-height: 50px; display: flex; align-items: center; border: 1px solid #ccc;  margin: 5px;font-weight: bold; }
-        .columns label { max-height: 50px; display: flex;  align-items: center;  gap: 8px;  border: 1px solid #ccc;  margin: 5px;  padding: 5px 10px;}
-        .columns input[type="radio"] {  width: 15px;  height: 15px;  accent-color: #007bff;}
+        .columns label { max-height: 50px; display: flex;  align-items: center;  gap: 8px;  border: 1px solid #ccc;  margin: 5px;  padding: 5px 10px;  background-color: #bfffc4;}
+        .columns input[type="radio"] {  width: 15px;  height: 15px;}
+        .columns input[type="text"] {font-weight: bold; padding-left: 20px; border: 1px dashed #ccc;}
         .columns label.active {  background-color: #a5ffad;  border-color: #00ff15;}
-        fieldset {width: calc(100% - 20px);border: 1px dashed #ccc;display: flex;justify-content: center;margin: 15px auto 15px;}
+        fieldset {width: calc(100% - 20px);display: flex;justify-content: center;margin: 15px auto 15px;}
+        fieldset button { width: 30%; }
+        .btn { border: none;}
+
+        /* Style cho ô input text */
+        #giftValueInput {
+          min-height: 35px;
+          padding: 6px 10px;
+          font-size: 16px;
+          border-radius: 4px;
+          transition: border-color 0.3s ease;
+        }
   </style>
 </head>
 <body>
   <h1 class="rainbow-animated">Lưu Gift</h1>
+  <fieldset class="btn"><input value="@yopmail.com"><button>Copy Text</button></fieldset>
+  <fieldset><input type="text" id="email-input" placeholder="Nhập yopmail cần kiểm tra." /><button id="check-btn" >Kiểm tra</button></fieldset>
   <input type="text" id="inputData" placeholder="Nhập link Gift muốn lưu">
   <button onclick="sendGiftToSheet('Sheet1')">Lưu Gift - Tổng</button>
   <button onclick="sendGiftToSheet('Dàn A')">Lưu Gift - Dàn A</button>
   <button onclick="sendGiftToSheet('Dàn B')">Lưu Gift - Dàn B</button>
   <button onclick="sendGiftToSheet('Dàn C')">Lưu Gift - Dàn C</button>
   <div class="columns">
-    <label><input type="radio" name="giftType" value="100" checked>Gift 100</label>
-    <label><input type="radio" name="giftType" value="500">Gift 500</label>
-    <label><input type="radio" name="giftType" value="1000">Gift 1000</label>
-    <label><input type="radio" name="giftType" value="1000">Gift 3000</label>
-    <label><input type="radio" name="giftType" value="Check URL">Check URL</label>
-    <label><input type="radio" name="giftType" value="Check User">Check User</label>
+    <label><input type="radio" name="giftType" id="giftRadio" value="100" checked>Gift<input type="text" id="giftValueInput" value="" placeholder="Nhập giá trị bất kỳ ( Mặc Định: 100 )" /></label>
+    
+    <script>
+      const giftRadio = document.getElementById('giftRadio');
+      const giftValueInput = document.getElementById('giftValueInput');
+    
+      giftValueInput.addEventListener('input', function() {
+        giftRadio.value = this.value; // Cập nhật value radio theo input người dùng
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email-input');
+            const checkBtn = document.getElementById('check-btn');
+            const suggestions = document.querySelectorAll('.email-suggestions span');
+            function checkEmail() {
+                const email = emailInput.value.trim();
+                if (email) {
+                    const cleanEmail = email.replace(/@yopmail\.com$/i, '');
+                    const yopmailUrl = `https://yopmail.com/en/?login=${encodeURIComponent(cleanEmail)}`;
+                    window.open(yopmailUrl, '_blank');}}
+            checkBtn.addEventListener('click', checkEmail);
+            emailInput.addEventListener('keypress', function(e) {if (e.key === 'Enter') {checkEmail();}});
+            suggestions.forEach(suggestion => {suggestion.addEventListener('click', function() {emailInput.value = this.textContent;checkEmail();});});
+        });
+    </script>    
   </div>
-
-  <div class="title" style="background-color: #9bffff;padding: 10px;" id="randomDNS">IP sẽ hiển thị ở đây</div>
-  <button class="btn" onclick="copyToClipboard()">Copy Random DNS</button>
   
-  <div style="margin: 10px;" id="qrcode"></div>
+  <div id="qrcode"></div>
   <footer>&copy; 2025 - DoanPB - All Rights Reserved.</footer>
 
 <script>
+  // Add QR code
   var qrText = "https://doanpbvn.github.io/ios";
   new QRCode(document.getElementById("qrcode"), qrText);
 
@@ -57,7 +87,7 @@
 
   function sendGiftToSheet(sheetName) {
     if (isSubmitting) {
-      alert("Đang tiến hành gửi, Bấm OK !");
+      alert("Đang gửi. Không bấm gửi lại !");
       return;
     }
 
@@ -89,59 +119,12 @@
         alert("❌ Có lỗi xảy ra, vui lòng thử lại!");
       });
   }
-  let ipList = [];
-
-        async function fetchDNSList() {
-            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://public-dns.info/nameserver/jp.html");
-            const displayElement = document.getElementById("randomDNS");
-
-            try {
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, "text/html");
-                const rows = doc.querySelectorAll("table tbody tr");
-                const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/; // Regex for valid IPv4 addresses
-                ipList = Array.from(rows)
-                    .map(row => row.querySelector("td").textContent.trim())
-                    .filter(ip => ipRegex.test(ip)); // Filter only valid IPs
-
-                if (ipList.length > 0) {
-                    setRandomIP();
-                } else {
-                    displayElement.textContent = "No valid IP addresses found.";
-                }
-            } catch (error) {
-                console.error("Error fetching DNS list:", error);
-                displayElement.textContent = "Error loading DNS data.";
+  document.addEventListener('click', e => {
+            if (e.target.tagName === 'BUTTON') {
+                const input = e.target.previousElementSibling;
+                if (input?.tagName === 'INPUT') {   navigator.clipboard.writeText(input.value).catch(console.error);    }
             }
-        }
-
-        function setRandomIP() {
-            if (ipList.length > 0) {
-                const randomIP = ipList[Math.floor(Math.random() * ipList.length)];
-                document.getElementById("randomDNS").textContent = randomIP;
-                return randomIP;
-            }
-            return null;
-        }
-
-        function copyToClipboard() {
-            const ip = document.getElementById("randomDNS").textContent;
-            if (ip && ip !== "Error loading DNS data." && ip !== "No valid IP addresses found.") {
-                navigator.clipboard.writeText(ip).then(() => {
-                    alert("Copied to clipboard: " + ip);
-                    setRandomIP(); // Change to a new random IP after copying
-                }).catch((error) => {
-                    alert("Failed to copy: " + error);
-                });
-            } else {
-                alert("No valid IP address to copy.");
-            }
-        }
-
-        // Load the DNS list on page load
-        window.onload = fetchDNSList;
+        });
 </script>
 
 </body>
