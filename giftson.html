@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#06c1db">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iOS Support - Đoàn</title>
+    <link rel="icon" type="image/png" href="./image/appstore.png">
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <style>
+        #showBtn {display: none; margin: 10px;}
+        body {font-weight: bold;}
+        input{width: calc(100% - 10px); min-height: 50px; display: flex;  border: 1px solid #ccc;  margin: 5px; padding: 10px;}
+        button {background-color: #9bffff; width: calc(100% - 10px); min-height: 50px; display: flex; align-items: center; border: 1px solid #ccc;  margin: 5px;font-weight: bold; }
+        .columns label { max-height: 50px; display: flex;  align-items: center;  gap: 8px;  border: 1px solid #ccc;  margin: 5px;  padding: 5px 10px;  background-color: #bfffc4;}
+        .columns input[type="radio"] {  width: 15px;  height: 15px;}
+        .columns input[type="text"] {font-weight: bold; padding-left: 20px; border: 1px dashed #ccc;}
+        .columns label.active {  background-color: #a5ffad;  border-color: #00ff15;}
+        fieldset {width: calc(100% - 20px);display: flex;justify-content: center;margin: 15px auto 15px;}
+        fieldset button { width: 30%; }
+        .btn { border: none;}
+
+        /* Style cho ô input text */
+        #giftValueInput {
+          min-height: 35px;
+          padding: 6px 10px;
+          font-size: 16px;
+          border-radius: 4px;
+          transition: border-color 0.3s ease;
+        }
+  </style>
+</head>
+<body>
+  <h1 class="rainbow-animated">Lưu Gift</h1>
+  <fieldset class="btn"><input value="@yopmail.com"><button>Copy Text</button></fieldset>
+  <fieldset><input type="text" id="email-input" placeholder="Nhập yopmail cần kiểm tra." /><button id="check-btn" >Kiểm tra</button></fieldset>
+  <input type="text" id="inputData" placeholder="Nhập link Gift muốn lưu">
+  <button onclick="sendGiftToSheet('Gift Tổng')">Lưu Gift - Tổng</button>
+  <div class="columns">
+    <label><input type="radio" name="giftType" id="giftRadio" value="100" checked>Gift<input type="text" id="giftValueInput" value="" placeholder="Nhập giá trị bất kỳ ( Mặc Định: 100 )" /></label>
+    
+    <script>
+      const giftRadio = document.getElementById('giftRadio');
+      const giftValueInput = document.getElementById('giftValueInput');
+    
+      giftValueInput.addEventListener('input', function() {
+        giftRadio.value = this.value; // Cập nhật value radio theo input người dùng
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email-input');
+            const checkBtn = document.getElementById('check-btn');
+            const suggestions = document.querySelectorAll('.email-suggestions span');
+            function checkEmail() {
+                const email = emailInput.value.trim();
+                if (email) {
+                    const cleanEmail = email.replace(/@yopmail\.com$/i, '');
+                    const yopmailUrl = `https://yopmail.com/en/?login=${encodeURIComponent(cleanEmail)}`;
+                    window.open(yopmailUrl, '_blank');}}
+            checkBtn.addEventListener('click', checkEmail);
+            emailInput.addEventListener('keypress', function(e) {if (e.key === 'Enter') {checkEmail();}});
+            suggestions.forEach(suggestion => {suggestion.addEventListener('click', function() {emailInput.value = this.textContent;checkEmail();});});
+        });
+    </script>    
+  </div>
+  
+  <div id="qrcode"></div>
+  <footer>&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+
+<script>
+  // Add QR code
+  var qrText = "https://doanpbvn.github.io/ios/giftson.html";
+  new QRCode(document.getElementById("qrcode"), qrText);
+
+  const radios = document.querySelectorAll('.columns input[type="radio"]');
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      radios.forEach(r => r.parentElement.classList.remove('active'));
+      radio.parentElement.classList.add('active');
+    });
+  });
+
+  let isSubmitting = false;
+
+  function sendGiftToSheet(sheetName) {
+    if (isSubmitting) {
+      alert("Đang gửi. Không bấm gửi lại !");
+      return;
+    }
+
+    const inputData = document.getElementById("inputData").value.trim();
+    const selectedType = document.querySelector('input[name="giftType"]:checked')?.value;
+    if (!inputData) return alert("Vui lòng nhập link gift");
+    if (!selectedType) return alert("Vui lòng chọn loại gift");
+
+    isSubmitting = true;
+    setTimeout(() => {
+      isSubmitting = false;
+    }, 5000);
+
+    const params = new URLSearchParams({
+      sheet: sheetName,
+      type: selectedType,
+      link: inputData
+    });
+    const fullURL = "https://script.google.com/macros/s/AKfycbyeVNZ3g6pJMvTxBF8EN5q7W0-GnvpUC_9GvpGBd0XadPffmeb17KIGGCIji5qq2uCw/exec?" + params.toString();
+
+    fetch(fullURL)
+      .then(res => res.ok ? res.text() : Promise.reject('Fetch lỗi'))
+      .then(data => {
+        alert(`✅ Lưu Thành Công ${data}`);
+        location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Có lỗi xảy ra, vui lòng thử lại!");
+      });
+  }
+  document.addEventListener('click', e => {
+            if (e.target.tagName === 'BUTTON') {
+                const input = e.target.previousElementSibling;
+                if (input?.tagName === 'INPUT') {   navigator.clipboard.writeText(input.value).catch(console.error);    }
+            }
+        });
+</script>
+
+</body>
+</html>
