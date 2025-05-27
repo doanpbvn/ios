@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lưu Gift lên Google Sheet</title>
+  <link rel="stylesheet" href="/gift/gift.css">
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyeVNZ3g6pJMvTxBF8EN5q7W0-GnvpUC_9GvpGBd0XadPffmeb17KIGGCIji5qq2uCw/exec";
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Lưu Gift - Sơn Hồng</h2>
+    <div id="statusContainer" class="status-container"></div>
+    <div class="input-group">
+      <label for="giftLink">Link Gift</label>
+      <input type="text" id="giftLink" placeholder="Nhập link gift bất kỳ">
+    </div>
+    <div class="input-group">
+      <label for="giftTypeCustom">Loại gift (giá trị)</label>
+      <div class="gift-type-options">
+      <input type="number" id="giftTypeCustom" placeholder="Nhập giá trị khác" value="100">
+    </div>
+      <div class="button-group">
+        <label for="giftTypeCustom">Chọn Gift Khác:</label>
+        <button type="button" class="gift-type-btn" data-value="500">500</button>
+        <button type="button" class="gift-type-btn" data-value="1000">1000</button>
+        <button type="button" class="gift-type-btn" data-value="3000">3000</button>
+      </div>
+    </div>
+    <div class="sheet-btns">
+      <button onclick="sendGiftToSheet('Sheet1')">Lưu Gift - Tổng</button>
+      <button onclick="sendGiftToSheet('Dàn A')">Lưu Gift - Dàn A</button>
+      <button onclick="sendGiftToSheet('Dàn B')">Lưu Gift - Dàn B</button>
+      <button onclick="sendGiftToSheet('Dàn C')">Lưu Gift - Dàn C</button>
+    </div>
+  </div>
+  <script src="/gift/gift.js"></script>
+  <footer>&copy; 2025 - DoanPB - All Rights Reserved.</footer>
+</body>
+</html>
+

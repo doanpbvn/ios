@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheet Manager - Quản lý tài khoản</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <script>const baseUrl = "https://script.google.com/macros/s/AKfycby69etd02O46uDatIQ32GO4DLhhN_7MxXkuB2VjjcLBiVl3EA1Y793XnelDn7raJ_XD/exec";</script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1><i class="fas fa-table"></i> Sheet Manager</h1>
+        </div>
+
+        <!-- Sheet Selection Section -->
+        <div class="sheet-selection">
+            <h3><i class="fas fa-list"></i> Chọn Trang Tính</h3>
+            <div id="reloadSheet"><i class="fas fa-info-circle"></i> Đang tải...</div>
+            <div id="SheetName"></div>
+        </div>
+        <!-- Data Section -->
+        <div class="data-section">
+            <div id="globalNotification" class="notification"></div>
+            <div id="dataContainer">
+                <div class="section"><h3><i class="fas fa-hourglass-half"></i> Đang tải dữ liệu...</h3></div>
+            </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

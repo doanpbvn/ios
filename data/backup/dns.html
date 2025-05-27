@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Japan DNS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #eef2f5;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007BFF;
+        }
+        .dns-ip {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #28a745;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        let ipList = []; // To store the list of valid IPs
+
+        async function fetchDNSList() {
+            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://public-dns.info/nameserver/jp.html");
+            const displayElement = document.getElementById("randomDNS");
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, "text/html");
+
+                const rows = doc.querySelectorAll("table tbody tr");
+                const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/; // Regular expression to match valid IPv4 addresses
+                ipList = Array.from(rows)
+                    .map(row => row.querySelector("td").textContent.trim())
+                    .filter(ip => ipRegex.test(ip)); // Filter only valid IPs
+
+                if (ipList.length > 0) {
+                    setRandomIP();
+                } else {
+                    displayElement.textContent = "No valid IP addresses found.";
+                }
+            } catch (error) {
+                console.error("Error fetching DNS list:", error);
+                displayElement.textContent = "Error loading DNS data.";
+            }
+        }
+
+        function setRandomIP() {
+            if (ipList.length > 0) {
+                const randomIP = ipList[Math.floor(Math.random() * ipList.length)];
+                document.getElementById("randomDNS").textContent = randomIP;
+                return randomIP;
+            }
+            return null;
+        }
+
+        function copyToClipboard() {
+            const ip = document.getElementById("randomDNS").textContent;
+            if (ip && ip !== "Error loading DNS data." && ip !== "No valid IP addresses found.") {
+                navigator.clipboard.writeText(ip).then(() => {
+                    alert("Copied to clipboard: " + ip);
+                    setRandomIP(); // Change to a new random IP after copying
+                });
+            } else {
+                alert("No valid IP address to copy.");
+            }
+        }
+
+        // Load the DNS list on page load
+        window.onload = fetchDNSList;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Japan DNS</h1>
+        <p>Click the button to copy a random DNS server IP address from Japan. A new IP will appear after copying.</p>
+        <div class="dns-ip" id="randomDNS">Loading...</div>
+        <button class="btn" onclick="copyToClipboard()">Copy Random DNS</button>
+    </div>
+</body>
+</html>
