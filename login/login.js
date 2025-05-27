@@ -1,3 +1,4 @@
+
 // Sheet Manager - Improved Version
 class SheetManager {
     constructor() {
@@ -178,7 +179,7 @@ class SheetManager {
         return `
             <div class="navigation-section">
               <button class="btn" id="loadSheetData" onclick="sheetManager.loadSheetData('${this.selectedSheet}')"><i class="fas fa-sync-alt"></i> Tải lại dữ liệu</button>
-              <button class="btn" id="doneButton-${rowIndex}">Đánh dấu là đã làm!</button>
+              <button class="btn btn-done" id="doneButton-${rowIndex}">Đánh dấu là đã làm!</button>
               <p>Hàng ${rowIndex + 2}</p>
               <label>
                 <button class="btn" id="prevBtn" ${rowIndex <= 0 ? "disabled" : ""}>Hàng trước</button>
