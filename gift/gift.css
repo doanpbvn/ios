@@ -41,13 +41,12 @@ input[type="number"] {
   border-radius: 5px;
   font-size: 16px;
 }
-
 .button-container {
-  display: flex;
-  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
 }
 .button-container button {
-  flex: 1;
   margin: 0 10px;
   padding: 10px;
   border-radius: 5px;
@@ -116,7 +115,10 @@ footer {
 }
 @media (max-width: 500px) {
   .container { padding: 14px 2vw; }
-  .sheet-btns button { min-width: 90px; font-size: 1.01rem; }
+  .sheet-btns button { 
+    min-width: 100px;
+    font-size: 1.01rem;
+  }
   h2 { font-size: 1.45rem; }
 }
 .gift-type-btns {
@@ -136,12 +138,6 @@ footer {
   display: block;
   margin-bottom: 8px;
   text-align: left;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px; /* khoảng cách giữa các nút */
 }
 
 .gift-type-btn {

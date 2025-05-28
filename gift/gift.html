@@ -6,19 +6,18 @@
   <title>Lưu Gift lên Google Sheet</title>
   <link rel="stylesheet" href="gift.css">
   <script src="gift.js"></script>
+  <script>const scriptURL = "https://script.google.com/macros/s/AKfycbxBduMz54Rd-3c1Pvz8k5AdEvXHF-JyVJF3dGKHeCfdYuor3SeS1du6teBmYBzcKPaPSQ/exec";</script>
 </head>
 <body>
 <main>
   <h3>Save Gift - TrangKyla</h3>
   <div id="statusContainer" class="status-container"></div>
-
   <div class="input-container">
     <p>LINK GIFT</p>
     <input type="text" id="giftLink" placeholder="Nhập link gift bất kỳ">
   </div>
-
   <div class="input-container">
-    <p>LOẠI GIFT <i style="font-size: 14px; color: red;">(Chọn hoặc nhập giá trị khác.)</i></p>
+    <p>LOẠI Gift</p>
     <input type="number" id="giftTypeCustom" placeholder="Nhập giá trị khác" value="100">
   </div>
 
@@ -36,12 +35,8 @@
     <button type="button" class="gift-type-btn" data-value="1000">1000</button>
     <button type="button" class="gift-type-btn" data-value="3000">3000</button>
   </div>
-
   <button onclick="sendGiftToSheet('Sheet1')" style="width: 100%; margin-top: 10px;">Lưu vào Tổng</button>
 </main>
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxBduMz54Rd-3c1Pvz8k5AdEvXHF-JyVJF3dGKHeCfdYuor3SeS1du6teBmYBzcKPaPSQ/exec"; // Thay URL của bạn ở đây
-  </script>
 <footer>&copy; 2025 - DoanPB - All Rights Reserved.</footer>
 </body>
 </html>
