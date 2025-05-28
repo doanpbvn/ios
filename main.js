@@ -151,17 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
     return isVisible;
 }
 
-const toggleBtn = document.getElementById('toggleBtn');
-const showBtn = document.getElementById('showBtn');
-let isVisible = false;
-
-toggleBtn.dataset.showText = 'Hiện Copy Text';
-toggleBtn.dataset.hideText = 'Ẩn Copy Text';
-
-toggleBtn.addEventListener('click', function() {
-    isVisible = toggleVisibility(this, showBtn, isVisible);
-});
-
 const bioBtn = document.getElementById('bioBtn');
 const bioShowBtn = document.getElementById('bioShowBtn');
 let isVisibleBio = false;
