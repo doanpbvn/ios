@@ -53,6 +53,58 @@
             <input value="japan006" readonly>
             <button class="fas fa-copy"></button>
         </block>
+         <block id="dataContainer">
+             <div id="code-container">
+        const { findImage, rootDir, getColor, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
+
+        const bdlTiktok = 'com.ss.iphone.ugc.Ame';
+        let nhatky = 1;
+
+        function _Click(x, y) {
+            if (nhatky) console.log("Click : " + x + ',' + y);
+            touchDown(1, x, y);
+            usleep(20000);
+            touchUp(1, x, y);
+        }
+
+        function _sleep(seconds) {
+            usleep(seconds * 1000000);
+        }
+
+        function _gcl(x, y) {
+            let c = getColor(x, y)[0][0];
+            if (nhatky) console.log("GCL : " + x + "," + y + " : " + c);
+            return c;
+        }
+
+        // (Full code truncated for brevity)...
+    </div>
+    <button id="copy-button">Copy Code</button>
+
+    <script>
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const codeContainer = document.getElementById('code-container');
+            const range = document.createRange();
+            const selection = window.getSelection();
+            
+            range.selectNodeContents(codeContainer);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                    alert('Code copied to clipboard!');
+                } else {
+                    alert('Failed to copy code.');
+                }
+            } catch (err) {
+                console.error('Error copying text: ', err);
+            }
+            selection.removeAllRanges(); // Deselect the text
+        });
+    </script>
+        </block>
     </div>
     <div class="section">
         <h2>Lưu Gift</h2><hr>
