@@ -164,104 +164,7 @@
           <div class="code-container">
     <button class="copy-btn" onclick="copyCode()">Sao chép</button>
     <textarea readonly id="code-block">
-const { findImage, rootDir, getColor, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
-
-//console.log(frontMostAppId())
-const bdlTiktok = 'com.ss.iphone.ugc.Ame';
-
-let nhatky = 1;
-
-function _Click(x, y) {
-    if (nhatky) console.log("Click : " + x + ',' + y);
-    touchDown(1, x, y);
-    usleep(20000); // 0.02 giây
-    touchUp(1, x, y);
-}
-
-function _sleep(seconds) {
-    usleep(seconds * 1000000); // Trực tiếp ngủ theo số giây đã cho (chuyển sang micro giây)
-}
-
-function _gcl(x, y) {
-    let c = getColor(x, y)[0][0];
-    if (nhatky) console.log("GCL : " + x + "," + y + " : " + c);
-    return c;
-}
-
-function _waitPixel(x, y, color, maxtime, vitrisms) {
-    let time = 0;
-    while (true) {
-        toast("waitPixel : " + time + '/' + maxtime, vitrisms, 1);
-        if (_gcl(x, y) == color) return 1; // Tim thay
-        usleep(1000000); // Chờ 1 giây
-        time++;
-        if (time > maxtime) return 0; // Khong tim duoc
-    }
-}
-
-function _swiDown() {
-    toast("Thực hiện vuốt màn hình từ trên xuống.");
-    touchDown(1, 489, 300);
-    usleep(100000);
-    for (let y = 300; y <= 630; y += 30) {
-        touchMove(1, 489, y);
-        usleep(20000);
-    }
-    touchUp(1, 489, 630);
-    usleep(500000);
-}
-
-const clickPoints = [
-    { x: 560, y: 1092 },
-    { x: 515, y: 1084 },
-    { x: 462, y: 1100 },
-    { x: 274, y: 1115 },
-    { x: 253, y: 1061 },
-    { x: 244, y: 1189 },
-    { x: 293, y: 1108 },
-    { x: 343, y: 1058 },
-    { x: 418, y: 1052 },
-    { x: 501, y: 1058 },
-    { x: 556, y: 1142 }
-];
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-let clicksSinceLastSwipe = 0;
-let targetClicksForSwipe = getRandomInt(150, 200);
-
-toast("Bắt đầu click 20000 lần vào các tọa độ ngẫu nhiên.");
-
-for (let i = 0; i < 20000; i++) {
-    const randomIndex = Math.floor(Math.random() * clickPoints.length);
-    const randomPoint = clickPoints[randomIndex];
-    _Click(randomPoint.x, randomPoint.y);
-    clicksSinceLastSwipe++;
-    if (clicksSinceLastSwipe >= targetClicksForSwipe) {
-        toast("Đã click " + clicksSinceLastSwipe + " lần, thực hiện vuốt màn hình.");
-        _swiDown();
-        _sleep(1);
-        clicksSinceLastSwipe = 0;
-        targetClicksForSwipe = getRandomInt(150, 200);
-    }
-    let randomSleepDuration = Math.random() * 0.066 + 0.1;
-    _sleep(randomSleepDuration);
-    if ((i + 1) % 10 === 0) {
-        toast("Đã click " + (i + 1) + " lần.");
-    }
-}
-toast("Hoàn thành 20000 lần click.");
-    </textarea>
-  </div>
-        <div class="code-container">
-    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
-    <textarea readonly id="code-block">
-        const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
-
+const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
 //console.log(frontMostAppId())
 const bdlTiktok = 'com.ss.iphone.ugc.Ame';
 
@@ -298,6 +201,11 @@ for (let i = 0; i < 5030; i++) {
     _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
 }
 toast("Hoàn thành 5000 lần click.");
+    </textarea>
+  </div>
+        <div class="code-container">
+    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
+    <textarea readonly id="code-block">
         </textarea>
         </div>
 
