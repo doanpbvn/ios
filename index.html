@@ -214,6 +214,51 @@ toast("Hoàn thành 20000 lần click.");
     </script>
         </block>
     </div>
+        <block id="dataContainer">
+    <div id="code-container" style="max-height: 20px;padding: 8px;">
+        const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
+
+//console.log(frontMostAppId())
+const bdlTiktok = 'com.ss.iphone.ugc.Ame';
+
+let nhatky = 1;
+
+
+function _Click(x, y) {
+    if (nhatky) console.log("Click : " + x + ',' + y);
+    touchDown(1, x, y);
+    usleep(20000); // 0.02 giây
+    touchUp(1, x, y);
+    usleep(getRandomInt(100000, 150000));
+}
+
+
+// Hàm _sleep đã được sửa để hoạt động chính xác với thời gian nhỏ hơn 1 giây
+function _sleep(seconds) {
+    usleep(seconds * 1000000); // Trực tiếp ngủ theo số giây đã cho (chuyển sang micro giây)
+}
+
+
+// Hàm để tạo số ngẫu nhiên trong một khoảng
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let clicksSinceLastSwipe = 0; // Biến đếm số lần click kể từ lần vuốt cuối cùng
+let targetClicksForSwipe = getRandomInt(150, 200); // Số lần click mục tiêu trước khi vuốt tiếp theo
+
+
+for (let i = 0; i < 5030; i++) {
+    _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
+}
+toast("Hoàn thành 5000 lần click.");
+
+    </div>
+    <button id="copy-button">Copy Code</button>
+        </block>
+    </div>
     <div class="section">
         <h2>Lưu Gift</h2><hr>
             <a class="textURL" href="./gift/gift.html" target="_blank">
