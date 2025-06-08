@@ -153,7 +153,7 @@
 
     textarea {
       width: 100%;
-      height: 400px;
+      height: 200px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -170,7 +170,6 @@ const bdlTiktok = 'com.ss.iphone.ugc.Ame';
 
 let nhatky = 1;
 
-
 function _Click(x, y) {
     if (nhatky) console.log("Click : " + x + ',' + y);
     touchDown(1, x, y);
@@ -178,7 +177,6 @@ function _Click(x, y) {
     touchUp(1, x, y);
     usleep(getRandomInt(100000, 150000));
 }
-
 
 // Hàm _sleep đã được sửa để hoạt động chính xác với thời gian nhỏ hơn 1 giây
 function _sleep(seconds) {
@@ -197,10 +195,10 @@ let clicksSinceLastSwipe = 0; // Biến đếm số lần click kể từ lần 
 let targetClicksForSwipe = getRandomInt(150, 200); // Số lần click mục tiêu trước khi vuốt tiếp theo
 
 
-for (let i = 0; i < 5030; i++) {
+for (let i = 0; i < 6030; i++) {
     _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
 }
-toast("Hoàn thành 5000 lần click.");
+toast("Hoàn thành 6000 lần click.");
     </textarea>
   </div>
         <div class="code-container">
