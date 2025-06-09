@@ -34,7 +34,102 @@
         </div>
         <div class="notifications" id="notifications" aria-live="assertive"></div>
     </div>
+ <div class="section">
+        <style>.code-container {
+      position: relative;
+      background-color: #f4f4f4;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: monospace;
+      line-height: 1.5;
+    }
 
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .copy-btn:hover {
+      background-color: #0056b3;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      resize: none;
+    }</style>
+        <h4>Code</h4><hr>
+          <div class="code-container">
+    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
+    <textarea readonly id="code-block">
+const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
+//console.log(frontMostAppId())
+const bdlTiktok = 'com.ss.iphone.ugc.Ame';
+
+let nhatky = 1;
+
+function _Click(x, y) {
+    if (nhatky) console.log("Click : " + x + ',' + y);
+    touchDown(1, x, y);
+    usleep(20000); // 0.02 giây
+    touchUp(1, x, y);
+    usleep(getRandomInt(100000, 150000));
+}
+
+// Hàm _sleep đã được sửa để hoạt động chính xác với thời gian nhỏ hơn 1 giây
+function _sleep(seconds) {
+    usleep(seconds * 1000000); // Trực tiếp ngủ theo số giây đã cho (chuyển sang micro giây)
+}
+
+
+// Hàm để tạo số ngẫu nhiên trong một khoảng
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let clicksSinceLastSwipe = 0; // Biến đếm số lần click kể từ lần vuốt cuối cùng
+let targetClicksForSwipe = getRandomInt(150, 200); // Số lần click mục tiêu trước khi vuốt tiếp theo
+
+
+for (let i = 0; i < 6030; i++) {
+    _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
+}
+toast("Hoàn thành 6000 lần click.");
+    </textarea>
+  </div>
+        <div class="code-container">
+    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
+    <textarea readonly id="code-block">
+        </textarea>
+        </div>
+
+  <script>
+    function copyCode() {
+      const code = document.getElementById('code-block');
+      code.select();
+      code.setSelectionRange(0, 99999); // Dành cho trình duyệt di động
+      navigator.clipboard.writeText(code.value).then(() => {
+        alert('Code đã được sao chép!');
+      });
+    }
+  </script>
+        </div>
     <div class="section">
         <h2>Support</h2><hr>
         <a class="textURL" href="./data/backup/generate-qr.html" target="_blank"><img class="icon" alt="icon" src="./image/downloads.png">QR Code</a>
@@ -120,106 +215,6 @@
             <img class="icon" alt="icon" src="./image/downloads.png">Download Data Settings
         </a>
     </div>
-
-
-    <div class="section">
-        <style>.code-container {
-      position: relative;
-      background-color: #f4f4f4;
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: monospace;
-      line-height: 1.5;
-    }
-
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 5px 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .copy-btn:hover {
-      background-color: #0056b3;
-    }
-
-    textarea {
-      width: 100%;
-      height: 200px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      resize: none;
-    }</style>
-        <h4>Code</h4><hr>
-          <div class="code-container">
-    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
-    <textarea readonly id="code-block">
-const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
-//console.log(frontMostAppId())
-const bdlTiktok = 'com.ss.iphone.ugc.Ame';
-
-let nhatky = 1;
-
-function _Click(x, y) {
-    if (nhatky) console.log("Click : " + x + ',' + y);
-    touchDown(1, x, y);
-    usleep(20000); // 0.02 giây
-    touchUp(1, x, y);
-    usleep(getRandomInt(100000, 150000));
-}
-
-// Hàm _sleep đã được sửa để hoạt động chính xác với thời gian nhỏ hơn 1 giây
-function _sleep(seconds) {
-    usleep(seconds * 1000000); // Trực tiếp ngủ theo số giây đã cho (chuyển sang micro giây)
-}
-
-
-// Hàm để tạo số ngẫu nhiên trong một khoảng
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-let clicksSinceLastSwipe = 0; // Biến đếm số lần click kể từ lần vuốt cuối cùng
-let targetClicksForSwipe = getRandomInt(150, 200); // Số lần click mục tiêu trước khi vuốt tiếp theo
-
-
-for (let i = 0; i < 6030; i++) {
-    _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
-}
-toast("Hoàn thành 6000 lần click.");
-    </textarea>
-  </div>
-        <div class="code-container">
-    <button class="copy-btn" onclick="copyCode()">Sao chép</button>
-    <textarea readonly id="code-block">
-        </textarea>
-        </div>
-
-  <script>
-    function copyCode() {
-      const code = document.getElementById('code-block');
-      code.select();
-      code.setSelectionRange(0, 99999); // Dành cho trình duyệt di động
-      navigator.clipboard.writeText(code.value).then(() => {
-        alert('Code đã được sao chép!');
-      });
-    }
-  </script>
-        </div>
-        
-
     <div class="section">
         <h4>Liên hệ</h4><hr>
         <ur class="social">
