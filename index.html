@@ -78,41 +78,23 @@
             <h4>Code</h4><hr>
             <button class="copy-btn" onclick="copyCode()">Sao chép</button>
             <textarea readonly id="code-block">
-                const { findImage, rootDir, frontMostAppId, tap, usleep, toast, touchDown, touchUp, touchMove, keyDown, keyUp, appRun, appState, Swipe } = at;
-                //console.log(frontMostAppId())
-                const bdlTiktok = 'com.ss.iphone.ugc.Ame';
-                
-                let nhatky = 1;
+                const { touchDown, touchUp, usleep, toast } = at;
                 
                 function _Click(x, y) {
-                    if (nhatky) console.log("Click : " + x + ',' + y);
                     touchDown(1, x, y);
-                    usleep(20000); // 0.02 giây
+                    usleep(20000); // Giảm thời gian trễ
                     touchUp(1, x, y);
-                    usleep(getRandomInt(100000, 150000));
+                    usleep(20000);
                 }
-                
-                // Hàm _sleep đã được sửa để hoạt động chính xác với thời gian nhỏ hơn 1 giây
-                function _sleep(seconds) {
-                    usleep(seconds * 1000000); // Trực tiếp ngủ theo số giây đã cho (chuyển sang micro giây)
+                function getRandomInt(min, max) {return Math.floor(Math.random() * (max - min + 1)) + min;}
+                function autoClick(times, minX, maxX, minY, maxY) {
+                    for (let i = 0; i < times; i++) {
+                        _Click(getRandomInt(minX, maxX), getRandomInt(minY, maxY));
+                        if (i % 10 === 0) {toast(`Đã click: ${i} lần`);}
+                    }
+                    toast(`Hoàn thành ${times} lần click.`);
                 }
-                
-                
-                // Hàm để tạo số ngẫu nhiên trong một khoảng
-                function getRandomInt(min, max) {
-                    min = Math.ceil(min);
-                    max = Math.floor(max);
-                    return Math.floor(Math.random() * (max - min + 1)) + min;
-                }
-                
-                let clicksSinceLastSwipe = 0; // Biến đếm số lần click kể từ lần vuốt cuối cùng
-                let targetClicksForSwipe = getRandomInt(150, 200); // Số lần click mục tiêu trước khi vuốt tiếp theo
-                
-                
-                for (let i = 0; i < 6030; i++) {
-                    _Click(getRandomInt(300,500), 900); // Click vào điểm ngẫu nhiên
-                }
-                toast("Hoàn thành 6000 lần click.");
+                autoClick(8000, 100, 600, 750, 1010);
             </textarea>
           </div>
         
