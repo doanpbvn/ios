@@ -82,7 +82,7 @@
                 
                 function _Click(x, y) {
                     touchDown(1, x, y);
-                    usleep(20000); // Giảm thời gian trễ
+                    usleep(20000);
                     touchUp(1, x, y);
                     usleep(20000);
                 }
@@ -94,7 +94,7 @@
                     }
                     toast(`Hoàn thành ${times} lần click.`);
                 }
-                autoClick(8000, 100, 600, 750, 1010);
+                autoClick(10000, 100, 600, 750, 1010);
             </textarea>
           </div>
         
