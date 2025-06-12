@@ -4,12 +4,34 @@
     <meta charset="UTF-8">
     <title>iOS Support - Đoàn</title>
     <link rel="icon" type="image/png" href="./image/appstore.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
     <style>
-      * {  margin: 0;  padding: 0;  box-sizing: border-box;outline: none;}
-      body {padding: 20px;  text-align: center;}
-      input[type="text"] {  padding: 12px 16px;  width: 400px; margin: 10px auto;  border: 2px solid #06c1db;  border-radius: 8px;   transition: all 0.3s;}
-      #qrcode {display: flex;justify-content: center;margin-top: 20px;}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+      }
+      body {
+        padding: 20px;
+        text-align: center;
+      }
+      input[type="text"] {
+        padding: 12px 16px;
+        width: 100%;
+        max-width: 400px;
+        margin: 10px auto;
+        border: 2px solid #06c1db;
+        border-radius: 8px;
+        transition: all 0.3s;
+        font-size: 16px;
+      }
+      #qrcode {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
     </style>
 </head>
 <body>
@@ -20,8 +42,13 @@
     <p>Ví dụ: <strong>https://doanpbvn.github.io/ios</strong></p>
     <div id="qrcode"></div>
   <script>
-    var qrcode = new QRCode(document.getElementById("qrcode"), "");    document.getElementById("text").addEventListener("input", function () {let value = this.value; qrcode.clear(); qrcode.makeCode(value);});
+    var qrcode = new QRCode(document.getElementById("qrcode"), "");
+    document.getElementById("text").addEventListener("input", function () {
+      let value = this.value;
+      qrcode.clear();
+      qrcode.makeCode(value);
+    });
   </script>
-    <footer style="text-align: center;">&copy; 2025 - Đoàn - All Rights Reserved.</footer>
+  <footer style="text-align: center;">&copy; 2025 - Đoàn - All Rights Reserved.</footer>
 </body>
 </html>
