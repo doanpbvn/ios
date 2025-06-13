@@ -216,3 +216,26 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+function copyCode() {
+    const code = document.getElementById('code-block');
+    const notification = document.getElementById('copyNotification');
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(code.value).then(() => {
+        showNotification();
+    }).catch(() => {
+        // Fallback for older browsers
+        code.select();
+        code.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        showNotification();
+    });
+    
+    function showNotification() {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }
+}
